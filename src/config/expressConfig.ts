@@ -2,7 +2,7 @@ import express, { NextFunction, Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import { sequelize } from './sequelizeConfig'
-import allRoutes from '../app/apis/routes/all.routes'
+import allRoutes from '../app/routes/all.routes'
 import joiErrorHandler from '../app/middlewares/JoiErrorHandler'
 import customErrorHandler from '../app/middlewares/CustomErrorHandler'
 
