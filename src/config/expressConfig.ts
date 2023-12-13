@@ -5,11 +5,13 @@ import { sequelize } from './sequelizeConfig'
 import allRoutes from '../app/routes/all.routes'
 import joiErrorHandler from '../app/middlewares/JoiErrorHandler'
 import customErrorHandler from '../app/middlewares/CustomErrorHandler'
+import morgan from 'morgan'
 
 const server = async () => {
     const app = express()
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({ extended: true }))
+    app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
     app.use(
         cors({
             origin: '*',
