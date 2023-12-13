@@ -1,18 +1,9 @@
-import { NextFunction, Request, Response } from 'express'
-import { createSuperAdminValidator } from '../validators/create.super.admin.validator'
+import { Request, Response } from 'express'
+import { StatusCodes } from '../../../enums/StatusCodes'
+import ResponseBuilder from '../../../ResponseBuilder'
 
-export const createSuperAdminController = async (
-    req: Request,
-    res: Response,
-    next: NextFunction,
-) => {
+export const createSuperAdminController = async (req: Request, res: Response) => {
     const data = req.body
 
-    try {
-        await createSuperAdminValidator(data, next)
-        return res.status(200).json({ message: 'Super Admin Created Successfully' })
-    }
-    catch (err: any) {
-        next(err)
-    }
+    return new ResponseBuilder(res, StatusCodes.SUCCESS, data, 'Super Admin Created')
 }

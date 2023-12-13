@@ -3,7 +3,8 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import { sequelize } from './sequelizeConfig'
 import allRoutes from '../app/apis/routes/all.routes'
-import CustomErrorHandler from '../app/apis/middlewares/CustomErrorHandler'
+import joiErrorHandler from '../app/middlewares/JoiErrorHandler'
+import customErrorHandler from '../app/middlewares/CustomErrorHandler'
 
 const server = async () => {
     const app = express()
@@ -65,7 +66,8 @@ const server = async () => {
         app.use(route)
     })
     app.use(
-        CustomErrorHandler,
+        joiErrorHandler,
+        customErrorHandler,
         (err: any, req: Request, res: Response, next: NextFunction) => {
             console.log('here in global error handler')
             console.error(err) // Log the error for debugging

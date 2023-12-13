@@ -7,7 +7,7 @@ export class ValidationError extends Error {
     }
 }
 
-const CustomErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
+const customErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
     if (err.name === 'ValidationError') {
         // Handle ValidationError
         return res.status(400).json({ error: err.message }) // Respond with a 400 Bad Request and the error message
@@ -16,4 +16,4 @@ const CustomErrorHandler = (err: any, req: Request, res: Response, next: NextFun
     }
 }
 
-export default CustomErrorHandler
+export default customErrorHandler
