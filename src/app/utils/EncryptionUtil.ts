@@ -12,7 +12,7 @@ export default class EncryptionUtil {
         return await bcrypt.compare(enteredPassword, dbPassword)
     }
 
-    static generateJwtToken(data: any): IAccessToken {
+    static generateJwtTokens(data: any): IAccessToken {
         return {
             accessToken: jwt.sign(data, process.env.JWT_SECRET!, {
                 expiresIn: '2 days',

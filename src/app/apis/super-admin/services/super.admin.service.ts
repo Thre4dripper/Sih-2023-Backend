@@ -3,6 +3,7 @@ import { ICreateSuperAdmin } from '../interface'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import superAdminRepository from '../repositories/super.admin.repository'
 import { Roles } from '../../../enums/Roles'
+import EncryptionUtil from '../../../utils/EncryptionUtil'
 
 class SuperAdminService {
     async findSuperAdminByEmail(email: string) {
@@ -17,7 +18,11 @@ class SuperAdminService {
         }
 
         data.role = Roles.SUPER_ADMIN
-        return superAdminRepository.createSuperAdmin(data)
+        const result = await superAdminRepository.createSuperAdmin(data)
+        return {
+            ...result.toJSON(),
+            accessTokens: EncryptionUtil.generateJwtTokens(result.toJSON()),
+        }
     }
 }
 
