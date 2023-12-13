@@ -1,8 +1,8 @@
 import express from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
-import * as path from 'path'
 import { sequelize } from './sequelizeConfig'
+import allRoutes from '../app/apis/routes/all.routes'
 
 const server = async () => {
     const app = express()
@@ -59,23 +59,18 @@ const server = async () => {
             preflightContinue: false,
         })
     )
-    // app.use(helmet())
-    app.use(express.static(path.join(__dirname, '../public')))
     // app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(getFinalSwagger()));
+    allRoutes.forEach((route) => {
+        app.use(route)
+    })
     app.use(function (_req, res) {
-        res.render(path.join(__dirname, '../views/error/404'), {
-            head: {
-                title: 'Page Not Found',
-            },
-            content: {
-                title: 'OOPS!',
-                description: 'Page Not Found. Error Code: 404',
-            },
+        return res.status(404).json({
+            message: 'Route not found.',
         })
     })
 
     try {
-        await(async () => {
+        await (async () => {
             await sequelize.authenticate()
             console.log('\x1b[32m%s\x1b[0m', 'Database Connected successfully.')
             await sequelize.sync({ alter: false })
