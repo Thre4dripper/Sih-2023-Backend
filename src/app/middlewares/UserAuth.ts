@@ -55,3 +55,29 @@ export const verifyOrganization = asyncHandler(
         next()
     }
 )
+
+export const verifyProctor = asyncHandler(
+    async (req: UserRequest<{}, {}, {}>, _res: Response, next: NextFunction) => {
+        const user = verifyToken(req)
+
+        if (user.role !== Roles.PROCTOR) {
+            throw new ValidationError(ErrorMessages.INVALID_USER)
+        }
+
+        req.user = user
+        next()
+    }
+)
+
+export const verifyStudent = asyncHandler(
+    async (req: UserRequest<{}, {}, {}>, _res: Response, next: NextFunction) => {
+        const user = verifyToken(req)
+
+        if (user.role !== Roles.STUDENT) {
+            throw new ValidationError(ErrorMessages.INVALID_USER)
+        }
+
+        req.user = user
+        next()
+    }
+)
