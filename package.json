@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/server.ts",
     "build": "tsc",
-    "start": "ts-node src/server.ts"
+    "start": "ts-node src/server.ts",
+    "preview": "node dist/src/server.js"
   },
   "author": "Ijlal Ahmad",
   "license": "MIT",
