@@ -3,6 +3,10 @@ import { registerOrganizationController } from '../../apis/organization/controll
 import { loginOrganizationController } from '../../apis/organization/controllers/login.organization.controller'
 import { loginOrganizationValidator } from '../../apis/organization/validators/login.organization.validator'
 import { registerOrganizationValidator } from '../../apis/organization/validators/register.organization.validator'
+import { createProctorValidator } from '../../apis/organization/validators/create.proctor.validator'
+import { createProctorController } from '../../apis/organization/controllers/create.proctor.controller'
+import { removeProctorValidator } from '../../apis/organization/validators/remove.proctor.validator'
+import { removeProctorController } from '../../apis/organization/controllers/remove.proctor.controller'
 
 const router = express.Router()
 
@@ -12,5 +16,7 @@ router.post(
     registerOrganizationController
 )
 router.post('/api/v1/login-organization', loginOrganizationValidator, loginOrganizationController)
+router.post('/api/v1/create-proctor', createProctorValidator, createProctorController)
+router.post('/api/v1/remove-proctor', removeProctorValidator, removeProctorController)
 
 export default router

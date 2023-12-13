@@ -7,4 +7,8 @@ export enum ErrorMessages {
     //Organization
     ORGANIZATION_ALREADY_EXISTS = 'Organization already exists',
     ORGANIZATION_NOT_FOUND = 'Organization not found',
+
+    //Proctor
+    PROCTOR_ALREADY_EXISTS = 'Proctor already exists',
+    PROCTOR_NOT_FOUND = 'Proctor not found',
 }
