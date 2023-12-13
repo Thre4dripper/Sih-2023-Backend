@@ -6,7 +6,11 @@ import { loginSuperAdminController } from '../../apis/super-admin/controllers/lo
 
 const router = express.Router()
 
-router.post('/api/v1/register-super-admin', registerSuperAdminValidator, registerSuperAdminController)
+router.post(
+    '/api/v1/register-super-admin',
+    registerSuperAdminValidator,
+    registerSuperAdminController
+)
 router.post('/api/v1/login-super-admin', loginSuperAdminValidator, loginSuperAdminController)
 
 export default router

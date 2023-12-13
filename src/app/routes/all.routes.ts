@@ -1,3 +1,4 @@
-import userRoutes from './user/super.admin.routes'
+import superAdminRoutes from './user/super.admin.routes'
+import organizationRoutes from './user/organization.routes'
 
-export default [userRoutes]
+export default [superAdminRoutes, organizationRoutes]

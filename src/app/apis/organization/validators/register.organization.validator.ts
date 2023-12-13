@@ -1,8 +1,8 @@
-import Joi from 'joi'
 import { NextFunction, Request, Response } from 'express'
+import Joi from 'joi'
 import JoiValidator from '../../../utils/JoiValidate'
 
-export const registerSuperAdminValidator = async (
+export const registerOrganizationValidator = async (
     req: Request,
     _res: Response,
     next: NextFunction
