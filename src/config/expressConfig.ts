@@ -3,8 +3,8 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 import { sequelize } from './sequelizeConfig'
 import allRoutes from '../app/routes/all.routes'
-import joiErrorHandler from '../app/middlewares/JoiErrorHandler'
-import customErrorHandler from '../app/middlewares/CustomErrorHandler'
+import joiErrorHandler from '../app/handlers/JoiErrorHandler'
+import customErrorHandler from '../app/handlers/CustomErrorHandler'
 import morgan from 'morgan'
 
 const server = async () => {
@@ -71,7 +71,6 @@ const server = async () => {
         joiErrorHandler,
         customErrorHandler,
         (err: any, req: Request, res: Response, next: NextFunction) => {
-            console.log('here in global error handler')
             console.error(err) // Log the error for debugging
             return res.status(500).json({ error: 'Internal Server Error' }) // Respond with a 500 Internal Server Error
         }

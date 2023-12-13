@@ -1,5 +1,7 @@
 export enum ErrorMessages {
     INVALID_CREDENTIALS = 'Invalid credentials',
+    INVALID_TOKEN = 'Invalid token',
+    INVALID_USER = 'Invalid user',
     //Super Admin
     SUPER_ADMIN_ALREADY_EXISTS = 'Super Admin already exists',
     SUPER_ADMIN_NOT_FOUND = 'Super Admin not found',

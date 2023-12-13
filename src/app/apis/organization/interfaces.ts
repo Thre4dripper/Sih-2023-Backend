@@ -4,5 +4,5 @@ export interface ICreateProctor {
     password: string
     phone: string
     role: string
-    organizationId: string
+    organizationId: number
 }

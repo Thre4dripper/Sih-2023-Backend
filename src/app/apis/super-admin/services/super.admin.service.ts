@@ -1,4 +1,4 @@
-import { ValidationError } from '../../../middlewares/CustomErrorHandler'
+import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import superAdminRepository from '../repositories/super.admin.repository'
 import { Roles } from '../../../enums/Roles'
