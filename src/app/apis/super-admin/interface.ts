@@ -11,3 +11,8 @@ export interface ICreateSuperAdmin {
     country: string
     zipCode: string
 }
+
+export interface ILoginSuperAdmin {
+    email: string
+    password: string
+}
