@@ -4,13 +4,18 @@ import { ICreateProctor } from '../interfaces'
 import ResponseBuilder from '../../../utils/ResponseBuilder'
 import { StatusCodes } from '../../../enums/StatusCodes'
 import { SuccessMessages } from '../../../enums/SuccessMessages'
-import { Request, Response } from 'express'
+import { Response } from 'express'
+import { UserRequest } from '../../../common/interfaces'
 
 export const createProctorController = asyncHandler(
-    async (req: Request<{}, {}, ICreateProctor>, res: Response) => {
-
+    async (req: UserRequest<{}, {}, ICreateProctor>, res: Response) => {
         const data = req.body
-        const response = await organizationService.createProctor(data)
+        const { id: organizationId } = req.user
+
+        const response = await organizationService.createProctor({
+            ...data,
+            organizationId,
+        })
         return new ResponseBuilder(
             res,
             StatusCodes.SUCCESS,

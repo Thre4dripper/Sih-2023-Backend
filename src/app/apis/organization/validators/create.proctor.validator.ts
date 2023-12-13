@@ -8,7 +8,6 @@ export const createProctorValidator = (req: Request, _res: Response, next: NextF
         email: Joi.string().email().required(),
         password: Joi.string().required(),
         phone: Joi.string().optional(),
-        organizationId: Joi.number().required(),
     })
     JoiValidate.validate(req, schema, next)
 }

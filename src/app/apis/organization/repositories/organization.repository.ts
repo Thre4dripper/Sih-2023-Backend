@@ -4,7 +4,7 @@ import User from '../../../models/User'
 class OrganizationRepository {
     async find(filter: {}) {
         return User.findOne({
-            where: filter
+            where: filter,
         })
     }
 
@@ -17,7 +17,7 @@ class OrganizationRepository {
         })
     }
 
-    async findProctor(id: number,organizationId: number) {
+    async findProctorById(id: number, organizationId: number) {
         return User.findOne({
             where: {
                 id,

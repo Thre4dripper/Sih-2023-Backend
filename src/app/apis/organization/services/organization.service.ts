@@ -1,6 +1,6 @@
 import { IRegisterUser } from '../../../common/interfaces'
 import organizationRepository from '../repositories/organization.repository'
-import { ValidationError } from '../../../middlewares/CustomErrorHandler'
+import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import { Roles } from '../../../enums/Roles'
 import EncryptionUtil from '../../../utils/EncryptionUtil'
@@ -50,6 +50,12 @@ class OrganizationService {
     }
 
     async createProctor(data: ICreateProctor) {
+        const organization = await organizationRepository.findOrganizationById(data.organizationId)
+
+        if (!organization) {
+            throw new ValidationError(ErrorMessages.ORGANIZATION_NOT_FOUND)
+        }
+
         const proctor = await organizationRepository.find({
             email: data.email,
             organizationId: data.organizationId,
@@ -66,11 +72,8 @@ class OrganizationService {
         return organizationRepository.create(data)
     }
 
-    async removeProctor(proctorId: number) {
-        const proctor = await organizationRepository.find({
-            id: proctorId,
-            role: Roles.PROCTOR,
-        })
+    async removeProctor(proctorId: number, organizationId: number) {
+        const proctor = await organizationRepository.findProctorById(proctorId, organizationId)
 
         if (!proctor) {
             throw new ValidationError(ErrorMessages.PROCTOR_NOT_FOUND)
