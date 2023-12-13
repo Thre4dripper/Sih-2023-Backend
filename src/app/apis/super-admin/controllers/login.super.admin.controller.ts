@@ -1,13 +1,13 @@
 import { Request, Response } from 'express'
 import asyncHandler from '../../../utils/AsyncHandler'
-import { ILoginSuperAdmin } from '../interface'
 import superAdminService from '../services/super.admin.service'
 import ResponseBuilder from '../../../utils/ResponseBuilder'
 import { StatusCodes } from '../../../enums/StatusCodes'
 import { SuccessMessages } from '../../../enums/SuccessMessages'
+import { ILoginUser } from '../../../common/interfaces'
 
 export const loginSuperAdminController = asyncHandler(
-    async (req: Request<{}, {}, ILoginSuperAdmin>, res: Response) => {
+    async (req: Request<{}, {}, ILoginUser>, res: Response) => {
         const data = req.body
         const response = await superAdminService.loginSuperAdmin(data)
         return new ResponseBuilder(

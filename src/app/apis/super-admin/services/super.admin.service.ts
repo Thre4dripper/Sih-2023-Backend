@@ -1,16 +1,16 @@
 import { ValidationError } from '../../../middlewares/CustomErrorHandler'
-import { ICreateSuperAdmin, ILoginSuperAdmin } from '../interface'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import superAdminRepository from '../repositories/super.admin.repository'
 import { Roles } from '../../../enums/Roles'
 import EncryptionUtil from '../../../utils/EncryptionUtil'
+import { ILoginUser, IRegisterUser } from '../../../common/interfaces'
 
 class SuperAdminService {
     async findSuperAdminByEmail(email: string) {
         return superAdminRepository.findSuperAdmin({ email })
     }
 
-    async createSuperAdmin(data: ICreateSuperAdmin) {
+    async registerSuperAdmin(data: IRegisterUser) {
         const superAdmin = await this.findSuperAdminByEmail(data.email)
 
         if (superAdmin) {
@@ -26,7 +26,7 @@ class SuperAdminService {
         }
     }
 
-    async loginSuperAdmin(data: ILoginSuperAdmin) {
+    async loginSuperAdmin(data: ILoginUser) {
         const superAdmin = await this.findSuperAdminByEmail(data.email)
 
         if (!superAdmin) {

@@ -1,4 +1,14 @@
-import { AutoIncrement, Column, DataType, Model, PrimaryKey, Table } from 'sequelize-typescript'
+import {
+    AutoIncrement,
+    BelongsTo,
+    Column,
+    DataType,
+    ForeignKey,
+    HasMany,
+    Model,
+    PrimaryKey,
+    Table,
+} from 'sequelize-typescript'
 import { Roles } from '../enums/Roles'
 
 @Table
@@ -11,6 +21,13 @@ export default class User extends Model<User> {
         allowNull: false,
     })
     id: number
+
+    @ForeignKey(() => User)
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: true,
+    })
+    organizationId: number
 
     @Column({
         type: DataType.STRING(128),
@@ -79,4 +96,10 @@ export default class User extends Model<User> {
         allowNull: true,
     })
     zipCode: string
+
+    @BelongsTo(() => User)
+    organization: User
+
+    @HasMany(() => User)
+    users: User[]
 }

@@ -4,13 +4,13 @@ import ResponseBuilder from '../../../utils/ResponseBuilder'
 import superAdminService from '../services/super.admin.service'
 import asyncHandler from '../../../utils/AsyncHandler'
 import { SuccessMessages } from '../../../enums/SuccessMessages'
-import { ICreateSuperAdmin } from '../interface'
+import { IRegisterUser } from '../../../common/interfaces'
 
-export const createSuperAdminController = asyncHandler(
-    async (req: Request<{}, {}, ICreateSuperAdmin>, res: Response) => {
+export const registerSuperAdminController = asyncHandler(
+    async (req: Request<{}, {}, IRegisterUser>, res: Response) => {
 
         const data = req.body
-        const response = await superAdminService.createSuperAdmin(data)
+        const response = await superAdminService.registerSuperAdmin(data)
         return new ResponseBuilder(
             res,
             StatusCodes.SUCCESS,

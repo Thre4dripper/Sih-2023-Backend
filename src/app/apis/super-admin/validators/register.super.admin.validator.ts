@@ -2,7 +2,7 @@ import Joi from 'joi'
 import { NextFunction } from 'express'
 import JoiValidator from '../../../utils/JoiValidate'
 
-export const createSuperAdminValidator = async (req: any, _res: any, next: NextFunction) => {
+export const registerSuperAdminValidator = async (req: any, _res: any, next: NextFunction) => {
     const schema = Joi.object({
         name: Joi.string().required(),
         email: Joi.string().email().required(),
