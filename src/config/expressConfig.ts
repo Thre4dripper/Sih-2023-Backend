@@ -1,8 +1,9 @@
-import express from 'express'
+import express, { NextFunction, Request, Response } from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 import { sequelize } from './sequelizeConfig'
 import allRoutes from '../app/apis/routes/all.routes'
+import CustomErrorHandler from '../app/apis/middlewares/CustomErrorHandler'
 
 const server = async () => {
     const app = express()
@@ -63,6 +64,16 @@ const server = async () => {
     allRoutes.forEach((route) => {
         app.use(route)
     })
+    app.use(
+        CustomErrorHandler,
+        (err: any, req: Request, res: Response, next: NextFunction) => {
+            console.log('here in global error handler')
+            console.error(err) // Log the error for debugging
+            return res.status(500).json({ error: 'Internal Server Error' }) // Respond with a 500 Internal Server Error
+        }
+    )
+
+    // no route found
     app.use(function (_req, res) {
         return res.status(404).json({
             message: 'Route not found.',

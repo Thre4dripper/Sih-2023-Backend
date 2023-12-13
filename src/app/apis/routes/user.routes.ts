@@ -3,6 +3,6 @@ import { createSuperAdminController } from '../super-admin/controllers/create.su
 
 const router = express.Router();
 
-router.get('/', createSuperAdminController);
+router.post('/api/v1/create-super-admin', createSuperAdminController);
 
 export default router;
