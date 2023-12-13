@@ -1,4 +1,4 @@
-import { StatusCodes } from './enums/StatusCodes'
+import { StatusCodes } from '../enums/StatusCodes'
 import { Response } from 'express'
 
 export default class ResponseBuilder {

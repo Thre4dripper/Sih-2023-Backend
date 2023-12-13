@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { StatusCodes } from '../../../enums/StatusCodes'
-import ResponseBuilder from '../../../ResponseBuilder'
+import ResponseBuilder from '../../../utils/ResponseBuilder'
 
 export const createSuperAdminController = async (req: Request, res: Response) => {
     const data = req.body
