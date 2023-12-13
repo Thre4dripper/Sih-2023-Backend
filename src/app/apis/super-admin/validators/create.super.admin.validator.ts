@@ -8,7 +8,7 @@ export const createSuperAdminValidator = async (req: any, _res: any, next: NextF
         email: Joi.string().email().required(),
         password: Joi.string().required(),
         phone: Joi.string().optional(),
-        profilePic: Joi.string().optional(),
+        profilePic: Joi.string().required(),
         address: Joi.string().optional(),
         city: Joi.string().optional(),
         state: Joi.string().optional(),
