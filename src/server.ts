@@ -1,23 +1,10 @@
-import { sequelize } from './sequelizeConfig'
+import server from './config/expressConfig'
 
-require('dotenv').config()
-import express from 'express'
-import * as process from 'process'
+const port = process.env.PORT || 3000;
 
-const app = express()
-
-app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
-
-sequelize
-    .authenticate()
-    .then(() => {
-        console.log('Connection has been established successfully.')
-        app.listen(process.env.PORT, () => {
-            console.log(`app listening at http://localhost:${process.env.PORT}`)
-        })
+(async () => {
+    const app = await server()
+    app.listen(port, () => {
+        console.log(`Server is listening on port ${port}`)
     })
-    .catch((err) => {
-        console.error('Unable to connect to the database:', err)
-    })
+})()
