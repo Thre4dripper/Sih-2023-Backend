@@ -1,3 +1,5 @@
+import * as path from 'path'
+
 require('dotenv').config()
 import { Op } from 'sequelize'
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript'
@@ -15,7 +17,7 @@ const sequelizeOptions: SequelizeOptions = {
             rejectUnauthorized: false,
         },
     },
-    models: [__dirname + '/app/models'],
+    models: [path.join(__dirname, '..', 'app', 'models')],
     logging: console.log,
     operatorsAliases: {
         $eq: Op.eq,
