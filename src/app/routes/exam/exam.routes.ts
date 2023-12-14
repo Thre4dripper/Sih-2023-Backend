@@ -45,7 +45,7 @@ router.get(
     getExamByIdController
 )
 
-router.delete(
+router.post(
     '/api/v1/delete-exam-question',
     verifyOrganization,
     deleteQuestionValidator,
