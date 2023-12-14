@@ -4,11 +4,13 @@ import { Roles } from '../../../enums/Roles'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import EncryptionUtil from '../../../utils/EncryptionUtil'
+import { IGetAllProctors } from '../interfaces'
 
 class ProctorService {
     async findProctorByEmail(email: string) {
-        return proctorRepository.find({ email,role: Roles.PROCTOR })
+        return proctorRepository.find({ email, role: Roles.PROCTOR })
     }
+
     async loginProctor(data: ILoginUser) {
         const proctor = await this.findProctorByEmail(data.email)
 
@@ -29,6 +31,12 @@ class ProctorService {
             ...proctor.toJSON(),
             accessTokens: EncryptionUtil.generateJwtTokens(proctor.toJSON()),
         }
+    }
+
+    async getAllProctors(data: IGetAllProctors) {
+        const { limit, offset, organizationId } = data
+
+        return proctorRepository.getAllProctors(limit, offset, organizationId)
     }
 }
 

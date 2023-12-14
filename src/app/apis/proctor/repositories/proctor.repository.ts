@@ -23,6 +23,22 @@ class ProctorRepository {
             },
         })
     }
+
+    async getAllProctors(limit: number, offset: number, organizationId: number) {
+        const proctors = await User.findAndCountAll({
+            where: {
+                role: Roles.PROCTOR,
+                organizationId,
+            },
+            limit,
+            offset,
+        })
+
+        return {
+            proctors: proctors.rows,
+            count: proctors.count,
+        }
+    }
 }
 
 export default new ProctorRepository()
