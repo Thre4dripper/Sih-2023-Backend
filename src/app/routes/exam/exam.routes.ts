@@ -8,6 +8,10 @@ import { getAllQuestionsController } from '../../apis/exams/controllers/get.all.
 import { getAllExamQuestionValidator } from '../../apis/exams/validators/get.all.exam.questions.validaors'
 import { getAllExamController } from '../../apis/exams/controllers/get.all.exam.controller'
 import { getAllExamValidator } from '../../apis/exams/validators/get.all.exam.validators'
+import { deleteQuestionByIdController } from '../../apis/exams/controllers/delete.exam.controller'
+import { deleteQuestionValidator } from '../../apis/exams/validators/delete.exam.validators'
+import { getExamByIdController } from '../../apis/exams/controllers/get.exam.by.id.controller'
+import { getExamByIdValidator } from '../../apis/exams/validators/get.exam.by.id.validators'
 
 const router = express.Router()
 
@@ -33,5 +37,19 @@ router.get(
 )
 
 router.get('/api/v1/get-all-exams', verifyOrganization, getAllExamValidator, getAllExamController)
+
+router.get(
+    '/api/v1/get-exam-by-id',
+    verifyOrganization,
+    getExamByIdValidator,
+    getExamByIdController
+)
+
+router.delete(
+    '/api/v1/delete-exam-question',
+    verifyOrganization,
+    deleteQuestionValidator,
+    deleteQuestionByIdController
+)
 
 export default router

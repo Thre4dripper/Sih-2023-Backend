@@ -22,6 +22,18 @@ class ExamQuestionRepository {
             distinct: true,
         })
     }
+
+    async findOne(data: any) {
+        return ExamQuestion.findOne({
+            where: data,
+        })
+    }
+
+    async delete(data: any) {
+        return ExamQuestion.destroy({
+            where: data,
+        })
+    }
 }
 
 export default new ExamQuestionRepository()

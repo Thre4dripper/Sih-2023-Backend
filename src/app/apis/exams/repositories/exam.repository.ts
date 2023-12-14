@@ -20,6 +20,10 @@ class ExamRepository {
             offset,
         })
     }
+
+    async finOne(data: any) {
+        return Exam.findOne(data)
+    }
 }
 
 export default new ExamRepository()

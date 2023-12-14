@@ -1,8 +1,8 @@
 import { ICreateExam } from '../interfaces'
 import examRepository from '../repositories/exam.repository'
 import organizationRepository from '../../organization/repositories/organization.repository'
-import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
+import { ValidationError } from '../../../handlers/CustomErrorHandler'
 
 class examService {
     async createExam(data: ICreateExam) {
@@ -26,6 +26,26 @@ class examService {
         }
         const { limit, offset, organizationId } = data
         return await examRepository.getAllExams(limit, offset, organizationId)
+    }
+
+    async getExamById(examId: number, organizationId: number) {
+        const result = await examRepository.finOne({
+            where: {
+                id: examId,
+            },
+        })
+
+        if (!result) {
+            throw new ValidationError('Exam not found')
+        }
+
+        console.log(examId, organizationId)
+
+        if (result.organizationId !== organizationId) {
+            throw new ValidationError('Exam not found')
+        }
+
+        return result
     }
 }
 
