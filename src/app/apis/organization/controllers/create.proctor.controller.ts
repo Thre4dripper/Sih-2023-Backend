@@ -20,7 +20,7 @@ export const createProctorController = asyncHandler(
             res,
             StatusCodes.SUCCESS,
             response,
-            SuccessMessages.PROCTOR_CREATED
+            SuccessMessages.PROCTOR_REGISTERED
         )
     }
 )
