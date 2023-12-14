@@ -7,10 +7,10 @@ import { ValidationError } from '../../../handlers/CustomErrorHandler'
 class examService {
     async createExam(data: ICreateExam) {
         const organization = await organizationRepository.find({
-            where: {
-                id: data.organizationId,
-            },
+            id: data.organizationId,
         })
+
+        console.log(organization)
 
         if (!organization) {
             throw new ValidationError(ErrorMessages.ORGANIZATION_NOT_FOUND)

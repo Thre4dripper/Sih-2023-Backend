@@ -1,7 +1,7 @@
 import express from 'express'
 import { verifyOrganization } from '../../middlewares/UserAuth'
 import { createExamController } from '../../apis/exams/controllers/create.exams.controller'
-import { createExaminationValidator } from '../../apis/exams/validators/create.exam.validators'
+import { createExamValidator } from '../../apis/exams/validators/create.exam.validators'
 import { createExamQuestionsController } from '../../apis/exams/controllers/create.exam.questions.controller'
 import { createExamQuestionValidator } from '../../apis/exams/validators/create.exam.question.validators'
 import { getAllQuestionsController } from '../../apis/exams/controllers/get.all.questions.controller'
@@ -18,7 +18,7 @@ const router = express.Router()
 router.post(
     '/api/v1/create-exam',
     verifyOrganization,
-    createExaminationValidator,
+    createExamValidator,
     createExamController
 )
 
