@@ -7,7 +7,7 @@ import { SuccessMessages } from '../../../enums/SuccessMessages'
 import { UserRequest } from '../../../common/interfaces'
 
 export const removeProctorController = asyncHandler(
-    async (req: UserRequest<{}, {}, { proctorId: number }>, res: Response) => {
+    async (req: UserRequest<{}, {}, { proctorId: number }, {}>, res: Response) => {
         const { proctorId } = req.body
         const { id: organizationId } = req.user
 

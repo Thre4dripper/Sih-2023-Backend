@@ -7,7 +7,7 @@ import User from '../models/User'
 import { Roles } from '../enums/Roles'
 import { UserRequest } from '../common/interfaces'
 
-const verifyToken = (req: UserRequest<{}, {}, {}>) => {
+const verifyToken = (req: UserRequest<{}, {}, {}, {}>) => {
     const header = req.headers.authorization
 
     const token = header?.split(' ')[1]
@@ -31,7 +31,7 @@ const verifyToken = (req: UserRequest<{}, {}, {}>) => {
 }
 
 export const verifySuperAdmin = asyncHandler(
-    async (req: UserRequest<{}, {}, {}>, _res: Response, next: NextFunction) => {
+    async (req: UserRequest<{}, {}, {}, {}>, _res: Response, next: NextFunction) => {
         const user = verifyToken(req)
 
         if (user.role !== Roles.SUPER_ADMIN) {
@@ -44,7 +44,7 @@ export const verifySuperAdmin = asyncHandler(
 )
 
 export const verifyOrganization = asyncHandler(
-    async (req: UserRequest<{}, {}, {}>, _res: Response, next: NextFunction) => {
+    async (req: UserRequest<{}, {}, {}, {}>, _res: Response, next: NextFunction) => {
         const user = verifyToken(req)
 
         if (user.role !== Roles.ORGANIZATION) {
@@ -57,7 +57,7 @@ export const verifyOrganization = asyncHandler(
 )
 
 export const verifyProctor = asyncHandler(
-    async (req: UserRequest<{}, {}, {}>, _res: Response, next: NextFunction) => {
+    async (req: UserRequest<{}, {}, {}, {}>, _res: Response, next: NextFunction) => {
         const user = verifyToken(req)
 
         if (user.role !== Roles.PROCTOR) {
@@ -70,7 +70,7 @@ export const verifyProctor = asyncHandler(
 )
 
 export const verifyStudent = asyncHandler(
-    async (req: UserRequest<{}, {}, {}>, _res: Response, next: NextFunction) => {
+    async (req: UserRequest<{}, {}, {}, {}>, _res: Response, next: NextFunction) => {
         const user = verifyToken(req)
 
         if (user.role !== Roles.STUDENT) {

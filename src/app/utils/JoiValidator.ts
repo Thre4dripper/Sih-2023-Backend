@@ -1,9 +1,8 @@
 import Joi from 'joi'
 import { NextFunction } from 'express'
 
-export default class JoiValidate {
-    static validate(req: any, schema: Joi.ObjectSchema<any>, next: NextFunction) {
-        const data = req.body
+export default class JoiValidator {
+    static validate(data: any, schema: Joi.ObjectSchema<any>, next: NextFunction) {
         const { error } = schema.validate(data)
 
         if (error) {

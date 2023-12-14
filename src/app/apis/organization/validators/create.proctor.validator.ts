@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import Joi from 'joi'
-import JoiValidate from '../../../utils/JoiValidate'
+import JoiValidator from '../../../utils/JoiValidator'
 
 export const createProctorValidator = (req: Request, _res: Response, next: NextFunction) => {
     const schema = Joi.object({
@@ -9,5 +9,5 @@ export const createProctorValidator = (req: Request, _res: Response, next: NextF
         password: Joi.string().required(),
         phone: Joi.string().optional(),
     })
-    JoiValidate.validate(req, schema, next)
+    JoiValidator.validate(req, schema, next)
 }

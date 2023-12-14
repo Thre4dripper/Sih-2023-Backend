@@ -25,6 +25,6 @@ export interface ILoginUser {
     password: string
 }
 
-export interface UserRequest<P,R1,R2> extends express.Request<P,R1,R2> {
+export interface UserRequest<P, R1, R2, R3> extends express.Request<P, R1, R2, R3> {
     user: User
 }

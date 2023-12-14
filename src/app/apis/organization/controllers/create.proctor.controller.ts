@@ -8,7 +8,7 @@ import { Response } from 'express'
 import { UserRequest } from '../../../common/interfaces'
 
 export const createProctorController = asyncHandler(
-    async (req: UserRequest<{}, {}, ICreateProctor>, res: Response) => {
+    async (req: UserRequest<{}, {}, ICreateProctor, {}>, res: Response) => {
         const data = req.body
         const { id: organizationId } = req.user
 

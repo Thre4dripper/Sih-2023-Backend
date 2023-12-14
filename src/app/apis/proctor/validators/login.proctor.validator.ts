@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express'
 import Joi from 'joi'
-import JoiValidator from '../../../utils/JoiValidate'
+import JoiValidator from '../../../utils/JoiValidator'
 
 export const loginProctorValidator = async (
     req: Request,
