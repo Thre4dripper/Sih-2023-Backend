@@ -14,6 +14,8 @@ import { getExamByIdController } from '../../apis/exams/controllers/get.exam.by.
 import { getExamByIdValidator } from '../../apis/exams/validators/get.exam.by.id.validators'
 import { updateExamController } from '../../apis/exams/controllers/update.exam.controller'
 import { updateExamValidator } from '../../apis/exams/validators/update.exam.validators'
+import { sendExamMailController } from '../../apis/mail/controllers/send.exam.mail.controller'
+import { sendExamMailValidator } from '../../apis/mail/validators/sendExamMailValidator'
 
 const router = express.Router()
 
@@ -50,5 +52,12 @@ router.post(
 )
 
 router.post('/api/v1/update-exam', verifyOrganization, updateExamValidator, updateExamController)
+
+router.post(
+    '/api/v1/send-exam-mail',
+    verifyOrganization,
+    sendExamMailValidator,
+    sendExamMailController
+)
 
 export default router

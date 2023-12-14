@@ -12,8 +12,14 @@ class RoomHandler {
 
     joinRoom(socket: Socket, payload: any) {
         const { roomId } = payload
-        console.log('Joining room', payload)
+        // console.log('Joining room', payload)
         socket.join(roomId)
+        socket.rooms.forEach((room: any) => {
+            //send to all clients in the room except sender
+            if (room !== socket.id) {
+                socket.to(room).emit(SocketEvents.JOIN_EXAM_ROOM, { roomId })
+            }
+        })
     }
 
     deleteRoom(socket: Socket) {

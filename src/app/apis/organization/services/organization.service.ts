@@ -88,6 +88,15 @@ class OrganizationService {
         const { limit, offset } = data
         return organizationRepository.getAllOrganizations(limit, offset)
     }
+
+    async getOrganizationById(organizationId: number) {
+        const organization = await organizationRepository.findOrganizationById(organizationId)
+        if (!organization) {
+            throw new ValidationError(ErrorMessages.ORGANIZATION_NOT_FOUND)
+        }
+
+        return organization
+    }
 }
 
 export default new OrganizationService()
