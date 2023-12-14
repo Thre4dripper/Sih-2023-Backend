@@ -10,6 +10,7 @@ class ProctorRepository {
         return User.findOne({
             where: {
                 id,
+                organizationId,
                 role: Roles.PROCTOR,
             },
         })
