@@ -15,6 +15,7 @@ export interface ICreateQuestion {
     options: ICreateQuestionOption[]
 }
 export interface ICreateExam {
+    id ?: number
     name: string
     description: string
     duration: number

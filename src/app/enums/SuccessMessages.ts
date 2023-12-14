@@ -25,4 +25,5 @@ export enum SuccessMessages {
     GET_ALL_EXAMS = 'All Exams Fetched Successfully',
     GET_ALL_EXAM_QUESTIONS = 'All Exam Questions Fetched Successfully',
     EXAM_FETCHED = 'Exam Fetched Successfully',
+    EXAM_UPDATED = 'Exam Updated Successfully',
 }

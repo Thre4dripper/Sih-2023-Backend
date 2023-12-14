@@ -47,6 +47,25 @@ class examService {
 
         return result
     }
+
+    async updateExam(data: ICreateExam) {
+        const { id, organizationId } = data
+        const exam = await examRepository.finOne({
+            where: {
+                id,
+            },
+        })
+
+        if (!exam) {
+            throw new ValidationError('Exam not found')
+        }
+
+        if (exam.organizationId !== organizationId) {
+            throw new ValidationError('Exam not found')
+        }
+
+        return await examRepository.update(data)
+    }
 }
 
 export default new examService()

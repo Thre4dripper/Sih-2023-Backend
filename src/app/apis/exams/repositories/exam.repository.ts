@@ -24,6 +24,14 @@ class ExamRepository {
     async finOne(data: any) {
         return Exam.findOne(data)
     }
+
+    async update(data: any) {
+        return Exam.update(data, {
+            where: {
+                id: data.id,
+            },
+        })
+    }
 }
 
 export default new ExamRepository()
