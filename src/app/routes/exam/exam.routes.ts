@@ -8,15 +8,16 @@ import { getAllQuestionsController } from '../../apis/exams/controllers/get.all.
 import { getAllExamQuestionValidator } from '../../apis/exams/validators/get.all.exam.questions.validaors'
 import { getAllExamController } from '../../apis/exams/controllers/get.all.exam.controller'
 import { getAllExamValidator } from '../../apis/exams/validators/get.all.exam.validators'
+import { deleteQuestionByIdController } from '../../apis/exams/controllers/delete.exam.question.controller'
+import { deleteQuestionValidator } from '../../apis/exams/validators/delete.exam.validators'
+import { getExamByIdController } from '../../apis/exams/controllers/get.exam.by.id.controller'
+import { getExamByIdValidator } from '../../apis/exams/validators/get.exam.by.id.validators'
+import { updateExamController } from '../../apis/exams/controllers/update.exam.controller'
+import { updateExamValidator } from '../../apis/exams/validators/update.exam.validators'
 
 const router = express.Router()
 
-router.post(
-    '/api/v1/create-exam',
-    verifyOrganization,
-    createExamValidator,
-    createExamController
-)
+router.post('/api/v1/create-exam', verifyOrganization, createExamValidator, createExamController)
 
 router.post(
     '/api/v1/create-exam-question',
@@ -33,5 +34,21 @@ router.get(
 )
 
 router.get('/api/v1/get-all-exams', verifyOrganization, getAllExamValidator, getAllExamController)
+
+router.get(
+    '/api/v1/get-exam-by-id',
+    verifyOrganization,
+    getExamByIdValidator,
+    getExamByIdController
+)
+
+router.post(
+    '/api/v1/delete-exam-question',
+    verifyOrganization,
+    deleteQuestionValidator,
+    deleteQuestionByIdController
+)
+
+router.post('/api/v1/update-exam', verifyOrganization, updateExamValidator, updateExamController)
 
 export default router

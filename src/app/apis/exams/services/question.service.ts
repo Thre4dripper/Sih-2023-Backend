@@ -40,6 +40,38 @@ class QuestionService {
         }
         return await questionsRepository.getAllQuestions(examId, limit, offset)
     }
+
+    async deleteQuestion(data: { questionId: number; organizationId: number }) {
+        const { questionId, organizationId } = data
+
+        const question = await questionsRepository.findOne({
+            id: questionId,
+        })
+
+        if (!question) {
+            throw new ValidationError(ErrorMessages.QUESTION_NOT_FOUND)
+        }
+
+        const exam = await examRepository.find({
+            id: question.examId,
+        })
+
+        if (!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
+        }
+
+        if (exam.organizationId !== organizationId) {
+            throw new ValidationError(ErrorMessages.QUESTION_NOT_FOUND)
+        }
+
+        await questionsRepository.delete({
+            id: questionId,
+        })
+
+        return {
+            message: 'Question deleted successfully',
+        }
+    }
 }
 
 export default new QuestionService()
