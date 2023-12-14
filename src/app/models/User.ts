@@ -1,30 +1,20 @@
 import {
-    AutoIncrement,
     BelongsTo,
     Column,
     DataType,
     ForeignKey,
     HasMany,
     Model,
-    PrimaryKey,
     Table,
 } from 'sequelize-typescript'
 import { Roles } from '../enums/Roles'
 
 @Table
 export default class User extends Model<User> {
-    @PrimaryKey
-    @AutoIncrement
-    @Column({
-        type: DataType.INTEGER,
-        unique: 'id_email_role',
-        allowNull: false,
-    })
-    id: number
-
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER,
+        unique: 'organizationId_email_role',
         allowNull: true,
     })
     organizationId: number
@@ -37,7 +27,7 @@ export default class User extends Model<User> {
 
     @Column({
         type: DataType.STRING,
-        unique: 'id_email_role',
+        unique: 'organizationId_email_role',
         allowNull: false,
     })
     email: string
@@ -56,7 +46,7 @@ export default class User extends Model<User> {
 
     @Column({
         type: DataType.ENUM(...Object.values(Roles)),
-        unique: 'id_email_role',
+        unique: 'organizationId_email_role',
         allowNull: false,
     })
     role: Roles
