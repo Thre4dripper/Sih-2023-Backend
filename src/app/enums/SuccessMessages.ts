@@ -21,4 +21,5 @@ export enum SuccessMessages {
 
     //Exams
     EXAM_CREATED = 'Exam Created Successfully',
+    EXAM_QUESTION_CREATED = 'Exam Question Created Successfully',
 }
