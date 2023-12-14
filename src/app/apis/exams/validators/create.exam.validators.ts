@@ -13,7 +13,6 @@ export const createExaminationValidator = async (
         description: Joi.string().required(),
         duration: Joi.number().required(),
         startTime: Joi.date().required(),
-        endTime: Joi.date().required(),
         passingMarks: Joi.number().required(),
         totalQuestions: Joi.number().required(),
         examType: Joi.string()

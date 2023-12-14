@@ -19,7 +19,6 @@ export interface ICreateExam {
     description: string
     duration: number
     startTime: Date
-    endTime: Date
     passingMarks: number
     totalQuestions: number
     examType: ExamTypes

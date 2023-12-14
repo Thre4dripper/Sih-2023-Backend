@@ -32,12 +32,6 @@ export default class Exam extends Model<Exam> {
     startTime: Date
 
     @Column({
-        type: DataType.DATE,
-        allowNull: false,
-    })
-    endTime: Date
-
-    @Column({
         type: DataType.INTEGER,
         allowNull: false,
     })
