@@ -17,6 +17,6 @@ export const GetAllExamsQuestionsController = asyncHandler(async (req: any, res:
         res,
         StatusCodes.SUCCESS,
         response,
-        SuccessMessages.EXAM_QUESTIONS_FETCHED
+        SuccessMessages.GET_ALL_EXAMS
     )
 })

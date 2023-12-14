@@ -7,5 +7,5 @@ export const getAllExamValidator = async (req: Request, _res: Response, next: Ne
         limit: Joi.number().required(),
         offset: Joi.number().required(),
     })
-    JoiValidator.validate(req.body, schema, next)
+    JoiValidator.validate(req.query, schema, next)
 }

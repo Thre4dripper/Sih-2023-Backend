@@ -6,7 +6,7 @@ class ExamRepository {
     }
 
     async getAllExams(limit: number, offset: number, organizationId: number) {
-        return Exam.findAll({
+        return Exam.findAndCountAll({
             where: {
                 organizationId,
             },
