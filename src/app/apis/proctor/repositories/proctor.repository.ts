@@ -3,7 +3,9 @@ import { Roles } from '../../../enums/Roles'
 
 class ProctorRepository {
     async find(filter: {}) {
-        return User.findOne(filter)
+        return User.findOne({
+            where: filter,
+        })
     }
 
     async findProctorById(id: number, organizationId: number) {

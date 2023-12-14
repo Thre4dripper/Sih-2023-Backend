@@ -21,6 +21,9 @@ const port = process.env.PORT || 3000
         })
 
         // Add other socket event listeners here as needed
+        socket.on('chat message', (msg) => {
+            console.log('message: ' + msg)
+        })
     })
 
     // Start listening for HTTP requests
