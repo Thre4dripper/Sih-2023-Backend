@@ -1,4 +1,4 @@
-import { SocketEvents } from './socketEvents'
+import { SocketEvents } from './SocketEvents'
 import { Socket } from 'socket.io'
 import RoomHandler from './RoomHandler'
 
