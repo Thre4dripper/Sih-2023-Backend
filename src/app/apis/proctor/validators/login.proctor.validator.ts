@@ -10,6 +10,7 @@ export const loginProctorValidator = async (
     const schema = Joi.object({
         email: Joi.string().email().required(),
         password: Joi.string().required(),
+        organizationId: Joi.number().required(),
     })
     JoiValidator.validate(req.body, schema, next)
 }

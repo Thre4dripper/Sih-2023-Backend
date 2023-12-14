@@ -1,18 +1,17 @@
-import { ILoginUser } from '../../../common/interfaces'
 import proctorRepository from '../repositories/proctor.repository'
 import { Roles } from '../../../enums/Roles'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import EncryptionUtil from '../../../utils/EncryptionUtil'
-import { IGetAllProctors } from '../interfaces'
+import { IGetAllProctors, ILoginProctor } from '../interfaces'
 
 class ProctorService {
-    async findProctorByEmail(email: string) {
-        return proctorRepository.find({ email, role: Roles.PROCTOR })
-    }
-
-    async loginProctor(data: ILoginUser) {
-        const proctor = await this.findProctorByEmail(data.email)
+    async loginProctor(data: ILoginProctor) {
+        const proctor = await proctorRepository.find({
+            email: data.email,
+            role: Roles.PROCTOR,
+            organizationId: data.organizationId,
+        })
 
         if (!proctor) {
             throw new ValidationError(ErrorMessages.PROCTOR_NOT_FOUND)
