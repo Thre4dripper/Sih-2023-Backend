@@ -1,0 +1,27 @@
+import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript'
+import ExamQuestion from './question.model'
+
+@Table
+export default class QuestionOption extends Model<QuestionOption> {
+    @Column({
+        type: DataType.STRING,
+        allowNull: false,
+    })
+    option: string
+
+    @Column({
+        type: DataType.BOOLEAN,
+        allowNull: false,
+    })
+    isCorrect: boolean
+
+    @ForeignKey(() => ExamQuestion)
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false,
+    })
+    questionId: number
+
+    @BelongsTo(() => ExamQuestion)
+    question: ExamQuestion
+}

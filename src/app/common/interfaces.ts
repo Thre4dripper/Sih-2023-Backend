@@ -1,4 +1,4 @@
-import User from '../models/User'
+import User from '../models/user.model'
 import express from 'express'
 
 export interface IAccessToken {

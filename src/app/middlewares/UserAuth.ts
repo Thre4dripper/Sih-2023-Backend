@@ -3,7 +3,7 @@ import asyncHandler from '../utils/AsyncHandler'
 import { ValidationError } from '../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../enums/ErrorMessages'
 import EncryptionUtil from '../utils/EncryptionUtil'
-import User from '../models/User'
+import User from '../models/user.model'
 import { Roles } from '../enums/Roles'
 import { UserRequest } from '../common/interfaces'
 

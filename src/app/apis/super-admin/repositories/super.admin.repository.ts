@@ -1,4 +1,4 @@
-import User from '../../../models/User'
+import User from '../../../models/user.model'
 import { Roles } from '../../../enums/Roles'
 
 class SuperAdminRepository {

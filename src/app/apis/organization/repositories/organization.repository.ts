@@ -1,5 +1,5 @@
 import { Roles } from '../../../enums/Roles'
-import User from '../../../models/User'
+import User from '../../../models/user.model'
 
 class OrganizationRepository {
     async find(filter: {}) {

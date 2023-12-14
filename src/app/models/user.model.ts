@@ -8,6 +8,7 @@ import {
     Table,
 } from 'sequelize-typescript'
 import { Roles } from '../enums/Roles'
+import Exam from './exam.model'
 
 @Table
 export default class User extends Model<User> {
@@ -92,4 +93,7 @@ export default class User extends Model<User> {
 
     @HasMany(() => User)
     users: User[]
+
+    @HasMany(() => Exam)
+    exams: Exam[]
 }
