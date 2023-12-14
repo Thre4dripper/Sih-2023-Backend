@@ -30,7 +30,7 @@ export const getAllQuestionsController = asyncHandler(
             res,
             StatusCodes.SUCCESS,
             response,
-            SuccessMessages.GET_ALL_EXAMS
+            SuccessMessages.GET_ALL_EXAM_QUESTIONS
         )
     }
 )
