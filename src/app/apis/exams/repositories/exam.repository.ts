@@ -5,8 +5,14 @@ class ExamRepository {
         return Exam.create(data)
     }
 
-    async findAll(data: any) {
-        return Exam.findAndCountAll(data)
+    async getAllExams(limit: number, offset: number, organizationId: number) {
+        return Exam.findAll({
+            where: {
+                organizationId,
+            },
+            limit,
+            offset,
+        })
     }
 }
 
