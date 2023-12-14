@@ -14,6 +14,6 @@ export enum SuccessMessages {
     PROCTOR_LOGGED_IN = 'Proctor Logged In Successfully',
     GET_ALL_PROCTORS = 'All Proctors Fetched Successfully',
 
-
     EXAM_CREATED = 'Exam Created Successfully',
+    EXAM_QUESTION_CREATED = 'Exam Question Created Successfully',
 }
