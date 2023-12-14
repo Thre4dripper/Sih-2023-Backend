@@ -1,5 +1,4 @@
 import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from 'sequelize-typescript'
-import { QuestionTypes } from '../enums/QuestionTypes'
 import User from './user.model'
 import ExamQuestion from './question.model'
 import ExamLog from './exam.log.model'
@@ -47,7 +46,7 @@ export default class Exam extends Model<Exam> {
         type: DataType.ENUM(...Object.values(ExamTypes)),
         allowNull: false
     })
-    examType: QuestionTypes
+    examType: ExamTypes
 
     @ForeignKey(() => User)
     @Column({
