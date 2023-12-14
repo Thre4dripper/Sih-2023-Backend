@@ -6,5 +6,5 @@ export const removeProctorValidator = (req: Request, _res: Response, next: NextF
     const schema = Joi.object({
         proctorId: Joi.number().required(),
     })
-    JoiValidator.validate(req, schema, next)
+    JoiValidator.validate(req.body, schema, next)
 }

@@ -19,5 +19,5 @@ export const registerSuperAdminValidator = async (
         zipCode: Joi.string().optional(),
         country: Joi.string().optional(),
     })
-    JoiValidator.validate(req, schema, next)
+    JoiValidator.validate(req.body, schema, next)
 }

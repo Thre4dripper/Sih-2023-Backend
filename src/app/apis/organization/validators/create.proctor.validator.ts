@@ -9,5 +9,5 @@ export const createProctorValidator = (req: Request, _res: Response, next: NextF
         password: Joi.string().required(),
         phone: Joi.string().optional(),
     })
-    JoiValidator.validate(req, schema, next)
+    JoiValidator.validate(req.body, schema, next)
 }
