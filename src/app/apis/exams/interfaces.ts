@@ -1,4 +1,5 @@
 import { QuestionTypes } from '../../enums/QuestionTypes'
+import { ExamTypes } from '../../enums/ExamTypes'
 export interface ICreateQuestionOption {
     option: string
     isCorrect: boolean
@@ -7,10 +8,11 @@ export interface ICreateQuestionOption {
 export interface ICreateQuestion {
     question: string
     description: string
-    questionType: QuestionTypes.MULTIPLE_CHOICE | QuestionTypes.CODING
+    questionType: QuestionTypes
     marks: number
     negativeMarks: number
     examId: number
+    options: ICreateQuestionOption[]
 }
 export interface ICreateExam {
     name: string
@@ -20,6 +22,6 @@ export interface ICreateExam {
     endTime: Date
     passingMarks: number
     totalQuestions: number
-    examType: QuestionTypes
+    examType: ExamTypes
     organizationId: number
 }

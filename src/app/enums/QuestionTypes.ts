@@ -1,5 +1,4 @@
 export enum QuestionTypes {
-    MULTIPLE_CHOICE = 'multiple_choice',
-    CODING = 'coding',
-    BOTH = 'both',
+    SINGLE_SELECT = 'single_select',
+    MULTI_SELECT = 'multi_select',
 }
