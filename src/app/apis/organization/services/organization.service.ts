@@ -5,6 +5,7 @@ import { ErrorMessages } from '../../../enums/ErrorMessages'
 import { Roles } from '../../../enums/Roles'
 import EncryptionUtil from '../../../utils/EncryptionUtil'
 import { ICreateProctor } from '../interfaces'
+import proctorRepository from '../../proctor/repositories/proctor.repository'
 
 class OrganizationService {
     async findOrganizationByEmail(email: string) {
@@ -73,13 +74,18 @@ class OrganizationService {
     }
 
     async removeProctor(proctorId: number, organizationId: number) {
-        const proctor = await organizationRepository.findProctorById(proctorId, organizationId)
+        const proctor = await proctorRepository.findProctorById(proctorId, organizationId)
 
         if (!proctor) {
             throw new ValidationError(ErrorMessages.PROCTOR_NOT_FOUND)
         }
 
-        return organizationRepository.removeProctor(proctorId)
+        return proctorRepository.removeProctor(proctorId)
+    }
+
+    async getAllOrganizations(data: { limit: number; offset: number }) {
+        const { limit, offset } = data
+        return organizationRepository.getAllOrganizations(limit, offset)
     }
 }
 

@@ -6,6 +6,7 @@ export enum SuccessMessages {
     //Organization
     ORGANIZATION_CREATED = 'Organization Created Successfully',
     ORGANIZATION_LOGGED_IN = 'Organization Logged In Successfully',
+    GET_ALL_ORGANIZATIONS = 'All Organizations Fetched Successfully',
 
     //Proctor
     PROCTOR_CREATED = 'Proctor Created Successfully',

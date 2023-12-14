@@ -17,25 +17,17 @@ class OrganizationRepository {
         })
     }
 
-    async findProctorById(id: number, organizationId: number) {
-        return User.findOne({
-            where: {
-                id,
-                role: Roles.PROCTOR,
-            },
-        })
-    }
-
     async create(data: any) {
         return User.create(data)
     }
 
-    async removeProctor(id: number) {
-        return User.destroy({
+    async getAllOrganizations(limit: number, offset: number) {
+        return User.findAndCountAll({
             where: {
-                id,
-                role: Roles.PROCTOR,
+                role: Roles.ORGANIZATION,
             },
+            limit,
+            offset,
         })
     }
 }
