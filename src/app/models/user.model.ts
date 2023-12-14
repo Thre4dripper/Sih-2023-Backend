@@ -9,6 +9,8 @@ import {
 } from 'sequelize-typescript'
 import { Roles } from '../enums/Roles'
 import Exam from './exam.model'
+import ExamResponse from './exam.response.model'
+import ExamLog from './exam.log.model'
 
 @Table
 export default class User extends Model<User> {
@@ -96,4 +98,10 @@ export default class User extends Model<User> {
 
     @HasMany(() => Exam)
     exams: Exam[]
+
+    @HasMany(() => ExamLog)
+    logs: ExamLog[]
+
+    @HasMany(() => ExamResponse)
+    responses: ExamResponse[]
 }

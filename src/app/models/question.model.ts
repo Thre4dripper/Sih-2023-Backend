@@ -2,6 +2,7 @@ import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from '
 import { QuestionTypes } from '../enums/QuestionTypes'
 import Exam from './exam.model'
 import QuestionOption from './question.option.model'
+import ExamResponse from './exam.response.model'
 
 @Table
 export default class ExamQuestion extends Model<ExamQuestion> {
@@ -23,6 +24,19 @@ export default class ExamQuestion extends Model<ExamQuestion> {
     })
     questionType: string
 
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: false,
+    })
+    marks: number
+
+    @Column({
+        type: DataType.INTEGER,
+        allowNull: true,
+        defaultValue: 0
+    })
+    negativeMarks: number
+
     @ForeignKey(() => Exam)
     @Column({
         type: DataType.INTEGER,
@@ -35,4 +49,7 @@ export default class ExamQuestion extends Model<ExamQuestion> {
 
     @HasMany(() => QuestionOption)
     options: QuestionOption[]
+
+    @HasMany(()=>ExamResponse)
+    responses: ExamResponse[]
 }

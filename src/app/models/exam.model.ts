@@ -2,6 +2,8 @@ import { BelongsTo, Column, DataType, ForeignKey, HasMany, Model, Table } from '
 import { QuestionTypes } from '../enums/QuestionTypes'
 import User from './user.model'
 import ExamQuestion from './question.model'
+import ExamLog from './exam.log.model'
+import ExamResponse from './exam.response.model'
 @Table
 export default class Exam extends Model<Exam> {
     @Column({
@@ -38,12 +40,6 @@ export default class Exam extends Model<Exam> {
         type: DataType.INTEGER,
         allowNull: false,
     })
-    totalMarks: number
-
-    @Column({
-        type: DataType.INTEGER,
-        allowNull: false,
-    })
     passingMarks: number
 
     @Column({
@@ -70,4 +66,10 @@ export default class Exam extends Model<Exam> {
 
     @HasMany(() => ExamQuestion)
     questions: ExamQuestion[]
+
+    @HasMany(() => ExamLog)
+    logs: ExamLog[]
+
+    @HasMany(() => ExamResponse)
+    responses: ExamResponse[]
 }
