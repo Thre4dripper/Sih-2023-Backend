@@ -1,15 +1,26 @@
 import { ICreateQuestion } from '../interfaces'
 import ExamQuestionRepository from '../repositories/questions.repository'
-import ExamQuestionOptions from '../repositories/questionsOptions.repository'
 import QuestionOption from '../../../models/question.option.model'
+import examRepository from '../repositories/exam.repository'
+import { ValidationError } from '../../../handlers/CustomErrorHandler'
+import { ErrorMessages } from '../../../enums/ErrorMessages'
+import questionOptionsRepository from '../repositories/question.options.repository'
+
 class QuestionService {
-    async createExamQuestions(questiondata: ICreateQuestion, optiondata: any) {
-        const question = await ExamQuestionRepository.create(questiondata)
+    async createExamQuestions(data: ICreateQuestion) {
+        const exam = await examRepository.find({
+            id: data.examId,
+        })
+
+        if(!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
+        }
+        const question = await ExamQuestionRepository.create(data)
 
         const { id } = question
 
-        for (const option of optiondata.options) {
-            await ExamQuestionOptions.create({
+        for (const option of data.options) {
+            await questionOptionsRepository.create({
                 option: option.option,
                 isCorrect: option.isCorrect,
                 questionId: id,
@@ -19,7 +30,7 @@ class QuestionService {
 
     async getAllExamQuestions(data: any) {
         const { examId } = data
-        const questions = await ExamQuestionRepository.findAll({
+        return await ExamQuestionRepository.findAll({
             where: {
                 examId,
             },
@@ -33,8 +44,6 @@ class QuestionService {
             limit: data.limit,
             offset: data.offset,
         })
-
-        return questions
     }
 }
 

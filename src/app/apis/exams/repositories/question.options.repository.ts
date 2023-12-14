@@ -1,9 +1,9 @@
 import QuestionOption from '../../../models/question.option.model'
 
-class ExamQuestionOption {
+class QuestionOptionRepository {
     async create(data: any) {
         return QuestionOption.create(data)
     }
 }
 
-export default new ExamQuestionOption()
+export default new QuestionOptionRepository()

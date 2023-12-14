@@ -19,7 +19,7 @@ router.post(
 )
 
 router.post(
-    '/api/v1/create-exam-questions',
+    '/api/v1/create-exam-question',
     verifyOrganization,
     createExamQuestionValidator,
     createExamQuestionsController
