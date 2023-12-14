@@ -17,7 +17,7 @@ export default class User extends Model<User> {
     @ForeignKey(() => User)
     @Column({
         type: DataType.INTEGER,
-        unique: 'organizationId_email_role',
+        unique: 'organizationId_email',
         allowNull: true,
     })
     organizationId: number
@@ -30,7 +30,7 @@ export default class User extends Model<User> {
 
     @Column({
         type: DataType.STRING,
-        unique: 'organizationId_email_role',
+        unique: 'organizationId_email',
         allowNull: false,
     })
     email: string
@@ -49,7 +49,6 @@ export default class User extends Model<User> {
 
     @Column({
         type: DataType.ENUM(...Object.values(Roles)),
-        unique: 'organizationId_email_role',
         allowNull: false,
     })
     role: Roles

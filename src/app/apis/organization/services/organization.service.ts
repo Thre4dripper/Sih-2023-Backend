@@ -68,6 +68,7 @@ class OrganizationService {
         }
 
         data.role = Roles.PROCTOR
+        data.organizationId = organization.id
         data.password = await EncryptionUtil.hashPassword(data.password)
 
         return organizationRepository.create(data)
