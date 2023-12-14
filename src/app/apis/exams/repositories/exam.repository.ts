@@ -26,7 +26,13 @@ class ExamRepository {
     }
 
     async update(data: any) {
-        return Exam.update(data, {
+        console.log(data, data.id)
+        await Exam.update(data, {
+            where: {
+                id: data.id,
+            },
+        })
+        return Exam.findOne({
             where: {
                 id: data.id,
             },

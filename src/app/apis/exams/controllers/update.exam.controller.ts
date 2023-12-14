@@ -16,6 +16,6 @@ export const updateExamController = asyncHandler(
             ...data,
             organizationId,
         })
-        return new ResponseBuilder(res, StatusCodes.SUCCESS, response, SuccessMessages.EXAM_CREATED)
+        return new ResponseBuilder(res, StatusCodes.SUCCESS, response, SuccessMessages.EXAM_UPDATED)
     }
 )

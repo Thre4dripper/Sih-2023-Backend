@@ -9,6 +9,7 @@ export const updateExamValidator = async (
     next: NextFunction
 ) => {
     const schema = Joi.object({
+        id: Joi.number().required(),
         name: Joi.string().required(),
         description: Joi.string().required(),
         duration: Joi.number().required(),
