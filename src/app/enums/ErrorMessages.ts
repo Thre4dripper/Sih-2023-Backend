@@ -13,4 +13,8 @@ export enum ErrorMessages {
     //Proctor
     PROCTOR_ALREADY_EXISTS = 'Proctor already exists',
     PROCTOR_NOT_FOUND = 'Proctor not found',
+
+    //Student
+    STUDENT_ALREADY_EXISTS = 'Student already exists',
+    STUDENT_NOT_FOUND = 'Student not found',
 }

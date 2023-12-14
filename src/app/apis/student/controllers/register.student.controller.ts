@@ -2,19 +2,21 @@ import asyncHandler from '../../../utils/AsyncHandler'
 import ResponseBuilder from '../../../utils/ResponseBuilder'
 import { StatusCodes } from '../../../enums/StatusCodes'
 import { SuccessMessages } from '../../../enums/SuccessMessages'
-import organizationService from '../services/organization.service'
+import studentService from '../services/student.service'
 import { Request, Response } from 'express'
-import { IRegisterUser } from '../../../common/interfaces'
+import { IRegisterStudent } from '../interfaces'
 
-export const registerOrganizationController = asyncHandler(
-    async (req: Request<{}, {}, IRegisterUser>, res: Response) => {
+export const registerStudentController = asyncHandler(
+    async (req: Request<{}, {}, IRegisterStudent>, res: Response) => {
         const data = req.body
-        const response = await organizationService.registerOrganization(data)
+
+        const response = await studentService.registerStudent(data)
+
         return new ResponseBuilder(
             res,
             StatusCodes.SUCCESS,
             response,
-            SuccessMessages.ORGANIZATION_REGISTERED
+            SuccessMessages.STUDENT_REGISTERED
         )
     }
 )

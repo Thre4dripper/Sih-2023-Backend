@@ -15,7 +15,7 @@ export const registerSuperAdminController = asyncHandler(
             res,
             StatusCodes.SUCCESS,
             response,
-            SuccessMessages.SUPER_ADMIN_CREATED
+            SuccessMessages.SUPER_ADMIN_REGISTERED
         )
     }
 )
