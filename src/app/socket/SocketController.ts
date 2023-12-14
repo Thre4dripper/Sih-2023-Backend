@@ -1,28 +1,21 @@
-import { IExamRoom } from './interfaces'
-import { SocketEvents } from '../enums/socketEvents'
+import { SocketEvents } from './SocketEvents'
 import { Socket } from 'socket.io'
+import RoomHandler from './RoomHandler'
 
 class SocketController {
-    rooms: IExamRoom[] = []
-
     listener = (socket: Socket) => {
         console.log('A user connected')
-        this.rooms.push({
-            socketId: socket.id,
-            organizationId: 1,
-            examId: 1
-        })
-
-        console.log(this.rooms)
 
         socket.on(SocketEvents.DISCONNECT, () => {
-            console.log('A user disconnected')
-            this.rooms = this.rooms.filter((room) => room.socketId !== socket.id)
+            RoomHandler.deleteRoom(socket)
         })
 
-        // Add other socket event listeners here as needed
-        socket.on('chat message', (msg) => {
-            console.log('message: ' + msg)
+        socket.on(SocketEvents.CREATE_EXAM_ROOM, (payload: any) => {
+            RoomHandler.createRoom(socket, payload)
+        })
+
+        socket.on(SocketEvents.JOIN_EXAM_ROOM, (payload: any) => {
+            RoomHandler.joinRoom(socket, payload)
         })
     }
 }

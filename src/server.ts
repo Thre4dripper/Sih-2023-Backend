@@ -1,7 +1,7 @@
 import http from 'http'
 import socketConfig from './config/socketConfig'
 import serverConfig from './config/expressConfig'
-import { SocketEvents } from './app/enums/socketEvents'
+import { SocketEvents } from './app/socket/SocketEvents'
 import SocketController from './app/socket/SocketController' // Assuming you have your server configuration in this file
 
 const port = process.env.PORT || 3000
