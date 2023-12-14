@@ -26,7 +26,6 @@ class ExamRepository {
     }
 
     async update(data: any) {
-        console.log(data, data.id)
         await Exam.update(data, {
             where: {
                 id: data.id,
