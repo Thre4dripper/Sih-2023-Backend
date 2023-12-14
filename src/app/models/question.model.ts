@@ -19,7 +19,7 @@ export default class ExamQuestion extends Model<ExamQuestion> {
     description: string
 
     @Column({
-        type: DataType.ENUM(QuestionTypes.MULTIPLE_CHOICE, QuestionTypes.CODING),
+        type: DataType.ENUM(...Object.values(QuestionTypes)),
         allowNull: false
     })
     questionType: string

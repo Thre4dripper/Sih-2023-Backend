@@ -4,6 +4,7 @@ import User from './user.model'
 import ExamQuestion from './question.model'
 import ExamLog from './exam.log.model'
 import ExamResponse from './exam.response.model'
+import { ExamTypes } from '../enums/ExamTypes'
 @Table
 export default class Exam extends Model<Exam> {
     @Column({
@@ -49,7 +50,7 @@ export default class Exam extends Model<Exam> {
     totalQuestions: number
 
     @Column({
-        type: DataType.ENUM(...Object.values(QuestionTypes)),
+        type: DataType.ENUM(...Object.values(ExamTypes)),
         allowNull: false
     })
     examType: QuestionTypes

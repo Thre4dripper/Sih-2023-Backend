@@ -8,9 +8,9 @@ export const getAllExamQuestionValidator = async (
     next: NextFunction
 ) => {
     const schema = Joi.object({
-        examId: Joi.number().required(),
         limit: Joi.number().required(),
         offset: Joi.number().required(),
+        examId: Joi.number().required(),
     })
-    JoiValidator.validate(req.body, schema, next)
+    JoiValidator.validate(req.query, schema, next)
 }
