@@ -62,6 +62,11 @@ class StudentService {
             accessTokens: EncryptionUtil.generateJwtTokens(student.toJSON()),
         }
     }
+
+    async getAllStudents(data: { limit: number; offset: number; organizationId: number }) {
+        const { limit, offset, organizationId } = data
+        return studentRepository.getAllStudents(limit, offset, organizationId)
+    }
 }
 
 export default new StudentService()
