@@ -4,9 +4,18 @@ import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import EncryptionUtil from '../../../utils/EncryptionUtil'
 import { IGetAllProctors, ILoginProctor } from '../interfaces'
+import organizationRepository from '../../organization/repositories/organization.repository'
 
 class ProctorService {
     async loginProctor(data: ILoginProctor) {
+        const organization = await organizationRepository.find({
+            id: data.organizationId,
+        })
+
+        if (!organization) {
+            throw new ValidationError(ErrorMessages.ORGANIZATION_NOT_FOUND)
+        }
+
         const proctor = await proctorRepository.find({
             email: data.email,
             role: Roles.PROCTOR,

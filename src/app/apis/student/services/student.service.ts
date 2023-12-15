@@ -38,6 +38,14 @@ class StudentService {
     }
 
     async loginStudent(data: ILoginStudent) {
+        const organization = await organizationRepository.find({
+            id: data.organizationId,
+        })
+
+        if (!organization) {
+            throw new ValidationError(ErrorMessages.ORGANIZATION_NOT_FOUND)
+        }
+
         const student = await studentRepository.find({
             email: data.email,
             role: Roles.STUDENT,
