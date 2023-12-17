@@ -7,11 +7,7 @@ class SocketController {
         console.log('A user connected')
 
         socket.on(SocketEvents.DISCONNECT, () => {
-            RoomHandler.deleteRoom(socket)
-        })
-
-        socket.on(SocketEvents.CREATE_EXAM_ROOM, (payload: any) => {
-            RoomHandler.createRoom(socket, payload)
+            RoomHandler.leaveRoom(socket)
         })
 
         socket.on(SocketEvents.JOIN_EXAM_ROOM, (payload: any) => {
