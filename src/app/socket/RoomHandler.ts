@@ -44,13 +44,21 @@ class RoomHandler {
         }
 
         if (type === Roles.STUDENT) {
-            //emit that student all proctors in the room
             const proctors = rooms[payload.roomId].filter((item) => item.type === Roles.PROCTOR)
-            socket.to(socket.id).emit(SocketEvents.JOINED_EXAM_ROOM, proctors)
-        } else if (type === Roles.PROCTOR) {
-            //emit that proctor all students in the room
+            const proctorIds = proctors.map((item) => item.socketId)
+
+            //send all proctors to the new student
+            socket.to(socket.id).emit(SocketEvents.NEW_STUDENT_JOINED, proctors)
+            //send the new student to all proctors
+            socket.to(proctorIds).emit(SocketEvents.NEW_STUDENT_JOINED, [streamData])
+        } else {
             const students = rooms[payload.roomId].filter((item) => item.type === Roles.STUDENT)
-            socket.to(socket.id).emit(SocketEvents.JOINED_EXAM_ROOM, students)
+            const studentIds = students.map((item) => item.socketId)
+
+            //send all students to the new proctor
+            socket.to(socket.id).emit(SocketEvents.NEW_PROCTOR_JOINED, students)
+            //send the new proctor to all students
+            socket.to(studentIds).emit(SocketEvents.NEW_PROCTOR_JOINED, [streamData])
         }
         console.log('Rooms', rooms)
     }
@@ -74,12 +82,6 @@ class RoomHandler {
                 .to(roomId)
                 .emit(SocketEvents.LEAVE_EXAM_ROOM, { leftPeerId, rooms: rooms[roomId] })
         }
-    }
-
-    clearRooms() {
-        Object.keys(rooms).forEach((roomId) => {
-            delete rooms[roomId]
-        })
     }
 }
 

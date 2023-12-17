@@ -1,7 +1,8 @@
 export enum SocketEvents {
     CONNECTION = 'connection',
     DISCONNECT = 'disconnect',
-    JOIN_EXAM_ROOM = 'join-exam-room',
-    JOINED_EXAM_ROOM = 'joined-exam-room',
-    LEAVE_EXAM_ROOM = 'leave-exam-room',
+    JOIN_EXAM_ROOM = 'join_exam_room',
+    NEW_STUDENT_JOINED = 'new_student_joined',
+    NEW_PROCTOR_JOINED = 'new_proctor_joined',
+    LEAVE_EXAM_ROOM = 'leave_exam_room',
 }
