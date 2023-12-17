@@ -4,7 +4,7 @@ import RoomHandler from './RoomHandler'
 
 class SocketController {
     listener = (socket: Socket) => {
-        console.log('A user connected')
+        console.log('New Connection')
 
         socket.on(SocketEvents.DISCONNECT, () => {
             RoomHandler.leaveRoom(socket)

@@ -1,31 +1,37 @@
 import { Socket } from 'socket.io'
 import { SocketEvents } from './SocketEvents'
+import { Roles } from '../enums/Roles'
 
 interface IPayload {
-    roomId: string
     peerId: string
+    roomId: string
+    type: Roles.STUDENT | Roles.PROCTOR
+}
+
+interface IRoom extends IPayload {
     socketId: string
-    type: 'STUDENT' | 'PROCTOR'
 }
 
-interface IRoom {
-    [key: string]: IPayload[]
+interface IGlobal {
+    [key: string]: IRoom[]
 }
 
-export const rooms: IRoom = {}
+export const rooms: IGlobal = {}
 
 class RoomHandler {
     joinRoom(socket: Socket, payload: IPayload) {
         console.log('Joining room', payload.roomId)
-        socket.join(payload.roomId)
 
-        const streamData: IPayload = {
-            peerId: payload.peerId,
+        const { roomId, peerId, type } = payload
+        socket.join(roomId)
+
+        const streamData: IRoom = {
+            peerId,
+            roomId,
             socketId: socket.id,
-            type: 'STUDENT',
-            roomId: payload.roomId,
+            type,
         }
-
+        //if a room already exists, add the peerId to the room
         if (rooms[payload.roomId]) {
             const oldRoom = rooms[payload.roomId]
             //if peerId already exists, don't add it again
@@ -36,7 +42,16 @@ class RoomHandler {
         } else {
             rooms[payload.roomId] = [streamData]
         }
-        socket.to(payload.roomId).emit(SocketEvents.JOINED_EXAM_ROOM, rooms[payload.roomId])
+
+        if (type === Roles.STUDENT) {
+            //emit that student all proctors in the room
+            const proctors = rooms[payload.roomId].filter((item) => item.type === Roles.PROCTOR)
+            socket.to(socket.id).emit(SocketEvents.JOINED_EXAM_ROOM, proctors)
+        } else if (type === Roles.PROCTOR) {
+            //emit that proctor all students in the room
+            const students = rooms[payload.roomId].filter((item) => item.type === Roles.STUDENT)
+            socket.to(socket.id).emit(SocketEvents.JOINED_EXAM_ROOM, students)
+        }
         console.log('Rooms', rooms)
     }
 
