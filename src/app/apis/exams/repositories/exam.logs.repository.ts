@@ -28,13 +28,19 @@ class ExamLogsRepository {
     async findAll(filter: any) {
         return await ExamLog.findAll({
             where: {
-                filter,
+                ...filter,
             },
         })
     }
 
     async update(id: number, data: any) {
-        return await ExamLog.update(data, {
+        await ExamLog.update(data, {
+            where: {
+                id,
+            },
+        })
+
+        return await ExamLog.findOne({
             where: {
                 id,
             },
