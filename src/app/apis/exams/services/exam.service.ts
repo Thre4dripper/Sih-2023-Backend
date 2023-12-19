@@ -4,7 +4,6 @@ import examLogsRepository from '../repositories/exam.logs.repository'
 import organizationRepository from '../../organization/repositories/organization.repository'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
-import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 
 class ExamService {
     async createExam(data: ICreateExam) {
@@ -67,46 +66,6 @@ class ExamService {
         }
 
         return await examRepository.update(data)
-    }
-
-    async startExam(data: { examId: number; studentId: number; activities: JSON }) {
-        const { examId, studentId, activities } = data
-
-        const exam = await examRepository.findOne({
-            where: {
-                id: examId,
-            },
-        })
-
-        const examLogData = await examLogsRepository.findOne({
-            examId,
-            studentId,
-        })
-
-        if (examLogData) {
-            throw new ValidationError('Exam already started')
-        }
-
-        if (!exam) {
-            throw new ValidationError('Exam not found')
-        }
-
-        if (exam.startTime > new Date()) {
-            throw new ValidationError('Exam not started yet')
-        }
-
-        const examLog = await examLogsRepository.create({
-            examId,
-            studentId,
-            activities,
-            logType: ExamLogTypes.ExamStarted,
-        })
-
-        if (!examLog) {
-            throw new ValidationError('Something went wrong')
-        }
-
-        return examLog
     }
 
     async getAllStudentByExamId(data: { examId: number; limit: number; offset: number }) {
