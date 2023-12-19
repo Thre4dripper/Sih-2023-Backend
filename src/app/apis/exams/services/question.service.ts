@@ -28,6 +28,8 @@ class QuestionService {
                 questionId: id,
             })
         }
+
+        return question
     }
 
     async getAllExamQuestions(data: {

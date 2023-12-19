@@ -27,7 +27,9 @@ export interface ICreateExam {
     organizationId: number
 }
 
-export interface IStartExam {
+export interface ISubmitExamQues {
     examId: number
-    activities: JSON
+    studentId: number
+    questionId: number
+    options: number[]
 }

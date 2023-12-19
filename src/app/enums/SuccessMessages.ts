@@ -32,4 +32,9 @@ export enum SuccessMessages {
 
     //Mail
     EXAM_MAIL_SENT = 'Exam Mail Sent Successfully',
+
+    //Live Exams
+    EXAM_STARTED = 'Exam Started Successfully',
+    EXAM_QUESTION_SUBMITTED = 'Exam Question Submitted Successfully',
+    EXAM_COMPLETED = 'Exam Completed Successfully',
 }
