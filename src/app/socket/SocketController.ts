@@ -16,10 +16,12 @@ class SocketController {
         })
 
         socket.on(SocketEvents.LOOKED_AWAY, async (payload: any) => {
+            console.log('LOOKED_AWAY')
             await ExamLogHandler.lookedAway(socket, payload)
         })
 
         socket.on(SocketEvents.OBJECT_DETECTED, async (payload: any) => {
+            console.log('OBJECT_DETECTED')
             await ExamLogHandler.objectDetected(socket, payload)
         })
     }

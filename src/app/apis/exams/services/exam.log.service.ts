@@ -2,25 +2,25 @@ import examLogsRepository from '../repositories/exam.logs.repository'
 import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 
 class ExamLogService {
-    async lookedAway(examId: number, student: number, lookAway: string) {
+    async lookedAway(examId: number, studentId: number, activity: string) {
         return examLogsRepository.create({
             examId,
-            student,
+            studentId,
             logType: ExamLogTypes.LookedAway,
             activities: {
-                activity: lookAway,
+                activity,
                 timeStamp: new Date(),
             },
         })
     }
 
-    async objectDetected(examId: number, student: number, object: string) {
+    async objectDetected(examId: number, studentId: number, activity: string) {
         return examLogsRepository.create({
             examId,
-            student,
+            studentId,
             logType: ExamLogTypes.ObjectDetected,
             activities: {
-                activity: object,
+                activity,
                 timeStamp: new Date(),
             },
         })
