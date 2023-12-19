@@ -1,13 +1,14 @@
-import { ILoginStudent, IRegisterStudent } from '../interfaces'
+import { ILoginStudent } from '../interfaces'
 import studentRepository from '../repositories/student.register.repository'
 import { Roles } from '../../../enums/Roles'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import EncryptionUtil from '../../../utils/EncryptionUtil'
 import organizationRepository from '../../organization/repositories/organization.repository'
+import { verifyAadhaar } from '../../../utils/AadharValidator'
 
 class StudentService {
-    async registerStudent(data: IRegisterStudent) {
+    async registerStudent(data: any) {
         const organization = await organizationRepository.find({
             id: data.organizationId,
         })
@@ -24,6 +25,12 @@ class StudentService {
 
         if (student) {
             throw new ValidationError(ErrorMessages.STUDENT_ALREADY_EXISTS)
+        }
+        const { aadharNumber } = data
+        const aadharValidate = await verifyAadhaar(aadharNumber.toString())
+        console.log(aadharValidate)
+        if (aadharValidate === 'INVALID_AADHAAR_NUMBER') {
+            throw new ValidationError(ErrorMessages.INVALID_AADHAR_NUMBER)
         }
 
         data.role = Roles.STUDENT

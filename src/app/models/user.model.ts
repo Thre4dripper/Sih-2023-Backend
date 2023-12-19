@@ -63,6 +63,18 @@ export default class User extends Model<User> {
         type: DataType.STRING,
         allowNull: true,
     })
+    aadharNumber: string
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: true,
+    })
+    aadharImage: string
+
+    @Column({
+        type: DataType.STRING,
+        allowNull: true,
+    })
     address: string
 
     @Column({
