@@ -62,24 +62,28 @@ export default class User extends Model<User> {
     @Column({
         type: DataType.STRING,
         allowNull: true,
+        defaultValue: null
     })
     aadharNumber: string
 
     @Column({
         type: DataType.STRING,
         allowNull: true,
+        defaultValue: null
     })
     aadharPic: string
 
     @Column({
         type: DataType.STRING,
         allowNull: true,
+        defaultValue: null
     })
     panNumber: string
 
     @Column({
         type: DataType.STRING,
         allowNull: true,
+        defaultValue: null
     })
     panPic: string
 
