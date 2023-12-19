@@ -46,6 +46,23 @@ class ProctorService {
 
         return proctorRepository.getAllProctors(limit, offset, organizationId)
     }
+
+    async verifyStudent(data: { studentId: number }) {
+        const { studentId } = data
+        const student = await proctorRepository.find({ id: studentId, role: Roles.STUDENT })
+
+        if (!student) {
+            throw new ValidationError(ErrorMessages.STUDENT_NOT_FOUND)
+        }
+
+        const updateData = {
+            isVerified: 1,
+        }
+
+        await proctorRepository.updateStudent({ id: studentId }, updateData)
+
+        return student
+    }
 }
 
 export default new ProctorService()

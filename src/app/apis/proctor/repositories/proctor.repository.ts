@@ -42,6 +42,23 @@ class ProctorRepository {
             count: proctors.count,
         }
     }
+
+    async updateStudent(data: { id: number }, updateData: {}) {
+    
+        await User.update(updateData, {
+            where: {
+                id: data.id,
+                role: Roles.STUDENT,
+            },
+        })
+
+        return User.findOne({
+            where: {
+                id: data.id,
+                role: Roles.STUDENT,
+            },
+        })
+    }
 }
 
 export default new ProctorRepository()
