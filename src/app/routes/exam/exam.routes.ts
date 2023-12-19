@@ -1,5 +1,5 @@
 import express from 'express'
-import { verifyOrgAndProctor, verifyOrganization, verifyStudent } from '../../middlewares/UserAuth'
+import { verifyOrgAndProctor, verifyOrganization } from '../../middlewares/UserAuth'
 import { createExamController } from '../../apis/exams/controllers/create.exams.controller'
 import { createExamValidator } from '../../apis/exams/validators/create.exam.validators'
 import { createExamQuestionsController } from '../../apis/exams/controllers/create.exam.questions.controller'
@@ -16,8 +16,6 @@ import { updateExamController } from '../../apis/exams/controllers/update.exam.c
 import { updateExamValidator } from '../../apis/exams/validators/update.exam.validators'
 import { sendExamMailController } from '../../apis/mail/controllers/send.exam.mail.controller'
 import { sendExamMailValidator } from '../../apis/mail/validators/sendExamMailValidator'
-import { startExamValidator } from '../../apis/live-exam/validators/start.exam.validators'
-import { startExamController } from '../../apis/live-exam/controllers/start.exam.controller'
 import { getAllStudentByExamIdValidator } from '../../apis/exams/validators/get.all.student.by.examId.validators'
 import { getAllStudentsForExamController } from '../../apis/exams/controllers/get.all.student.by.examId.controller'
 import { getExamLogsOfStudentController } from '../../apis/exams/controllers/get.exam.logs.by.student.id.controller'
@@ -74,8 +72,6 @@ router.post(
     sendExamMailValidator,
     sendExamMailController
 )
-
-router.post('/api/v1/exam/start-exam', verifyStudent, startExamValidator, startExamController)
 
 router.get(
     '/api/v1/exam/get-all-students',

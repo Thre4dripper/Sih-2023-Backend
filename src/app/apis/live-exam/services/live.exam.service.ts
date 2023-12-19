@@ -22,8 +22,6 @@ class LiveExamService {
             logType: ExamLogTypes.ExamStarted,
         })
 
-        console.log(examLogData)
-
         if (examLogData) {
             throw new ValidationError(ErrorMessages.EXAM_ALREADY_STARTED)
         }
@@ -43,6 +41,49 @@ class LiveExamService {
                 activity: 'Exam Started',
             },
             logType: ExamLogTypes.ExamStarted,
+        })
+
+        if (!examLog) {
+            throw new ValidationError('Something went wrong')
+        }
+
+        return examLog
+    }
+
+    async finishExam(data: { examId: number; studentId: number }) {
+        const { examId, studentId } = data
+
+        const exam = await examRepository.findOne({
+            where: {
+                id: examId,
+            },
+        })
+
+        const examLogData = await liveExamLogRepository.find({
+            examId,
+            studentId,
+            logType: ExamLogTypes.ExamFinished,
+        })
+
+        if (examLogData) {
+            throw new ValidationError(ErrorMessages.EXAM_ALREADY_FINISHED)
+        }
+
+        if (!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
+        }
+
+        if (exam.startTime > new Date()) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
+        }
+
+        const examLog = await examLogsRepository.create({
+            examId,
+            studentId,
+            activities: {
+                activity: 'Exam Finished',
+            },
+            logType: ExamLogTypes.ExamFinished,
         })
 
         if (!examLog) {
