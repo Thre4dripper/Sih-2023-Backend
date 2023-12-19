@@ -3,11 +3,12 @@ import ResponseBuilder from '../../../utils/ResponseBuilder'
 import questionService from '../services/question.service'
 import { StatusCodes } from '../../../enums/StatusCodes'
 import { SuccessMessages } from '../../../enums/SuccessMessages'
-import { Request, Response } from 'express'
+import { Response } from 'express'
+import { UserRequest } from '../../../common/interfaces'
 
 export const getAllQuestionsController = asyncHandler(
     async (
-        req: Request<
+        req: UserRequest<
             {},
             {},
             {},
@@ -19,10 +20,12 @@ export const getAllQuestionsController = asyncHandler(
         >,
         res: Response
     ) => {
-
         const { examId, limit, offset } = req.query
+        const { id: organizationId } = req.user
+
         const response = await questionService.getAllExamQuestions({
             examId,
+            organizationId,
             limit,
             offset,
         })

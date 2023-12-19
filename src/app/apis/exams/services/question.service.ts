@@ -5,11 +5,13 @@ import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import questionOptionsRepository from '../repositories/question.options.repository'
 import questionsRepository from '../repositories/questions.repository'
+import organizationRepository from '../../organization/repositories/organization.repository'
 
 class QuestionService {
     async createExamQuestions(data: ICreateQuestion) {
         const exam = await examRepository.find({
             id: data.examId,
+            organizationId: data.organizationId,
         })
 
         if (!exam) {
@@ -28,8 +30,19 @@ class QuestionService {
         }
     }
 
-    async getAllExamQuestions(data: { limit: number; offset: number; examId: number }) {
-        const { examId, limit, offset } = data
+    async getAllExamQuestions(data: {
+        limit: number
+        offset: number
+        examId: number
+        organizationId: number
+    }) {
+        const { examId, organizationId, limit, offset } = data
+
+        const organization = await organizationRepository.findOrganizationById(organizationId)
+
+        if (!organization) {
+            throw new ValidationError(ErrorMessages.ORGANIZATION_NOT_FOUND)
+        }
 
         const exam = await examRepository.find({
             id: examId,
@@ -38,7 +51,8 @@ class QuestionService {
         if (!exam) {
             throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
-        return await questionsRepository.getAllQuestions(examId, limit, offset)
+
+        return await questionsRepository.getAllQuestions(examId, organizationId, limit, offset)
     }
 
     async deleteQuestion(data: { questionId: number; organizationId: number }) {

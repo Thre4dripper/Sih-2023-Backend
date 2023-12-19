@@ -1,12 +1,13 @@
 import ExamQuestion from '../../../models/question.model'
 import QuestionOption from '../../../models/question.option.model'
+import Exam from '../../../models/exam.model'
 
 class ExamQuestionRepository {
     async create(data: any) {
         return ExamQuestion.create(data)
     }
 
-    async getAllQuestions(examId: number, limit: number, offset: number) {
+    async getAllQuestions(examId: number, organizationId: number, limit: number, offset: number) {
         return ExamQuestion.findAndCountAll({
             where: {
                 examId,
@@ -16,6 +17,13 @@ class ExamQuestionRepository {
                     model: QuestionOption,
                     as: 'options',
                 },
+                {
+                    model: Exam,
+                    as: 'exam',
+                    where: {
+                        organizationId,
+                    },
+                }
             ],
             limit,
             offset,

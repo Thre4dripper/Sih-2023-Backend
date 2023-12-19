@@ -6,7 +6,7 @@ import { ErrorMessages } from '../../../enums/ErrorMessages'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 
-class examService {
+class ExamService {
     async createExam(data: ICreateExam) {
         const organization = await organizationRepository.find({
             id: data.organizationId,
@@ -145,4 +145,4 @@ class examService {
     }
 }
 
-export default new examService()
+export default new ExamService()
