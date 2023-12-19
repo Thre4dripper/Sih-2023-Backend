@@ -1,6 +1,7 @@
 import { BelongsTo, Column, DataType, ForeignKey, Model, Table } from 'sequelize-typescript'
 import Exam from './exam.model'
 import User from './user.model'
+import { ExamLogTypes } from '../enums/ExamLogTypes'
 
 @Table
 export default class ExamLog extends Model<ExamLog> {
@@ -17,6 +18,12 @@ export default class ExamLog extends Model<ExamLog> {
         allowNull: false,
     })
     studentId: number
+
+    @Column({
+        type: DataType.ENUM(...Object.values(ExamLogTypes)),
+        allowNull: false,
+    })
+    logType: ExamLogTypes
 
     @Column({
         type: DataType.JSON,

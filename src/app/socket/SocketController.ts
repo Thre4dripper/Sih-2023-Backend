@@ -4,14 +4,10 @@ import RoomHandler from './RoomHandler'
 
 class SocketController {
     listener = (socket: Socket) => {
-        console.log('A user connected')
+        console.log('New Connection')
 
         socket.on(SocketEvents.DISCONNECT, () => {
-            RoomHandler.deleteRoom(socket)
-        })
-
-        socket.on(SocketEvents.CREATE_EXAM_ROOM, (payload: any) => {
-            RoomHandler.createRoom(socket, payload)
+            RoomHandler.leaveRoom(socket)
         })
 
         socket.on(SocketEvents.JOIN_EXAM_ROOM, (payload: any) => {
