@@ -3,13 +3,13 @@ import examLogService from '../apis/exams/services/exam.log.service'
 
 class ExamLogHandler {
     async lookedAway(socket: Socket, payload: any) {
-        const { examId, student, lookAway } = payload
-        await examLogService.lookedAway(examId, student, lookAway)
+        const { examId, studentId, activity } = payload
+        await examLogService.lookedAway(examId, studentId, activity)
     }
 
     async objectDetected(socket: Socket, payload: any) {
-        const { examId, student, object } = payload
-        await examLogService.objectDetected(examId, student, object)
+        const { examId, studentId, activity } = payload
+        await examLogService.objectDetected(examId, studentId, activity)
     }
 }
 

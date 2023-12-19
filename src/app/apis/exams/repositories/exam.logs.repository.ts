@@ -5,12 +5,14 @@ class ExamLogsRepository {
         return await ExamLog.create(data)
     }
 
-    async findOne(data: any) {
-        return await ExamLog.findOne(data)
+    async findOne(filter: {}) {
+        return await ExamLog.findOne({
+            where: filter,
+        })
     }
 
     async findAndCountAll(examId: number, limit: number, offset: number) {
-        const data = await ExamLog.findAndCountAll({
+        return await ExamLog.findAndCountAll({
             where: {
                 examId: examId,
                 logType: 'exam_started',
@@ -21,14 +23,20 @@ class ExamLogsRepository {
             order: [['createdAt', 'DESC']],
             attributes: ['id', 'examId', 'studentId', 'createdAt'],
         })
-        return data
     }
 
-    async findAll(data: any) {
+    async findAll(filter: any) {
         return await ExamLog.findAll({
             where: {
-                studentId: data.studentId,
-                examId: data.examId,
+                filter,
+            },
+        })
+    }
+
+    async update(id: number, data: any) {
+        return await ExamLog.update(data, {
+            where: {
+                id,
             },
         })
     }

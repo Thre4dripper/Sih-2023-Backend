@@ -2,26 +2,82 @@ import examLogsRepository from '../repositories/exam.logs.repository'
 import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 
 class ExamLogService {
-    async lookedAway(examId: number, student: number, lookAway: string) {
+    async lookedAway(examId: number, studentId: number, activity: string) {
+        const existingLog = await examLogsRepository.findOne({
+            examId,
+            studentId,
+            logType: ExamLogTypes.LookedAway,
+        })
+
+        if (existingLog?.activities?.activities.length >= 20) {
+            return
+        }
+
+        if (existingLog) {
+            return examLogsRepository.update(existingLog.id, {
+                activities: {
+                    activities: [
+                        ...existingLog.activities.activities,
+                        {
+                            activity,
+                            timeStamp: new Date(),
+                        },
+                    ],
+                },
+            })
+        }
+
         return examLogsRepository.create({
             examId,
-            student,
+            studentId,
             logType: ExamLogTypes.LookedAway,
             activities: {
-                activity: lookAway,
-                timeStamp: new Date(),
+                activities: [
+                    {
+                        activity,
+                        timeStamp: new Date(),
+                    },
+                ],
             },
         })
     }
 
-    async objectDetected(examId: number, student: number, object: string) {
+    async objectDetected(examId: number, studentId: number, activity: string) {
+        const existingLog = await examLogsRepository.findOne({
+            examId,
+            studentId,
+            logType: ExamLogTypes.ObjectDetected,
+        })
+
+        if (existingLog?.activities?.activities.length >= 20) {
+            return
+        }
+
+        if (existingLog) {
+            return examLogsRepository.update(existingLog.id, {
+                activities: {
+                    activities: [
+                        ...existingLog.activities.activities,
+                        {
+                            activity,
+                            timeStamp: new Date(),
+                        },
+                    ],
+                },
+            })
+        }
+
         return examLogsRepository.create({
             examId,
-            student,
+            studentId,
             logType: ExamLogTypes.ObjectDetected,
             activities: {
-                activity: object,
-                timeStamp: new Date(),
+                activities: [
+                    {
+                        activity,
+                        timeStamp: new Date(),
+                    },
+                ],
             },
         })
     }
