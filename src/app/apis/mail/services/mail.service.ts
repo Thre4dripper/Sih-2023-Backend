@@ -25,12 +25,12 @@ class MailService {
         exam = exam.toJSON()
         organization = organization.toJSON()
 
-        if (!exam) {
-            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
-        }
-
         if (!organization) {
             throw new ValidationError(ErrorMessages.ORGANIZATION_NOT_FOUND)
+        }
+
+        if (!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
         if (!students || students.rows.length === 0) {
