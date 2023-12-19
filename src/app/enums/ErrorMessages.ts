@@ -22,5 +22,7 @@ export enum ErrorMessages {
 
     //Exams
     EXAM_NOT_FOUND = 'Exam not found',
+    EXAM_ALREADY_STARTED = 'Exam already started',
+    EXAM_NOT_STARTED = 'Exam not started yet',
     QUESTION_NOT_FOUND = 'Question not found',
 }

@@ -18,6 +18,11 @@ export const submitExamQuesController = asyncHandler(
             studentId,
         })
 
-        return new ResponseBuilder(res, StatusCodes.SUCCESS, response, SuccessMessages.EXAM_CREATED)
+        return new ResponseBuilder(
+            res,
+            StatusCodes.SUCCESS,
+            response,
+            SuccessMessages.EXAM_QUESTION_SUBMITTED
+        )
     }
 )

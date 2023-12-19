@@ -1,18 +1,17 @@
 import asyncHandler from '../../../utils/AsyncHandler'
-import examService from '../services/exam.service'
 import ResponseBuilder from '../../../utils/ResponseBuilder'
-import { IStartExam } from '../interfaces'
 import { StatusCodes } from '../../../enums/StatusCodes'
 import { SuccessMessages } from '../../../enums/SuccessMessages'
 import { Response } from 'express'
 import { UserRequest } from '../../../common/interfaces'
+import liveExamService from '../services/live.exam.service'
 
 export const startExamController = asyncHandler(
-    async (req: UserRequest<{}, {}, IStartExam, {}>, res: Response) => {
+    async (req: UserRequest<{}, {}, { examId: number }, {}>, res: Response) => {
         const data = req.body
         const { id: studentId } = req.user
 
-        const response = await examService.startExam({
+        const response = await liveExamService.startExam({
             ...data,
             studentId,
         })
