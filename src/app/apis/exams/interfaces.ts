@@ -31,3 +31,10 @@ export interface IStartExam {
     examId: number
     activities: JSON
 }
+
+export interface ISubmitExamQues {
+    examId: number
+    studentId: number
+    questionId: number
+    options: number[]
+}

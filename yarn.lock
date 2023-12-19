@@ -9,6 +9,11 @@
   dependencies:
     "@jridgewell/trace-mapping" "0.3.9"
 
+"@google/generative-ai@^0.1.3":
+  version "0.1.3"
+  resolved "https://registry.yarnpkg.com/@google/generative-ai/-/generative-ai-0.1.3.tgz#8e529d4d86c85b64d297b4abf1a653d613a09a9f"
+  integrity sha512-Cm4uJX1sKarpm1mje/MiOIinM7zdUUrQp/5/qGPAgznbdd/B9zup5ehT6c1qGqycFcSopTA1J1HpqHS5kJR8hQ==
+
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"
@@ -236,6 +241,11 @@
   version "13.11.7"
   resolved "https://registry.yarnpkg.com/@types/validator/-/validator-13.11.7.tgz#99e19760297667ae46b7069ec8b96cbfe0a08b98"
   integrity sha512-q0JomTsJ2I5Mv7dhHhQLGjMvX0JJm5dyZ1DXQySIUzU1UlwzB8bt+R6+LODUbz0UDIOvEzGc28tk27gBJw2N8Q==
+
+aadhaar-validator@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/aadhaar-validator/-/aadhaar-validator-1.1.0.tgz#2f75319803b73d92af2024b92a5e4b56f83473f2"
+  integrity sha512-ku6YnUFcBtV1UQ1o2QXLQvMVQirh0cOFbXEQ4Qd6rwo93Sihpm6tvopZzE58v72z9kdt3Ci2sanDpl1+dvdbFw==
 
 abbrev@1:
   version "1.1.1"

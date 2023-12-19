@@ -81,3 +81,16 @@ export const verifyStudent = asyncHandler(
         next()
     }
 )
+
+export const verifyOrgAndProctor = asyncHandler(
+    async (req: UserRequest<{}, {}, {}, {}>, _res: Response, next: NextFunction) => {
+        const user = verifyToken(req)
+
+        if (user.role !== Roles.ORGANIZATION && user.role !== Roles.PROCTOR) {
+            throw new ValidationError(ErrorMessages.INVALID_USER)
+        }
+
+        req.user = user
+        next()
+    }
+)
