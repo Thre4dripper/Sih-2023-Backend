@@ -13,6 +13,7 @@ export interface ICreateQuestion {
     negativeMarks: number
     examId: number
     options: ICreateQuestionOption[]
+    organizationId: number
 }
 export interface ICreateExam {
     id?: number

@@ -1,5 +1,5 @@
-import { ILoginStudent } from '../interfaces'
-import studentRepository from '../repositories/student.register.repository'
+import { ILoginStudent, IRegisterStudent } from '../interfaces'
+import studentRepository from '../repositories/student.repository'
 import { Roles } from '../../../enums/Roles'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
@@ -8,7 +8,7 @@ import organizationRepository from '../../organization/repositories/organization
 import { verifyAadhaar } from '../../../utils/AadharValidator'
 
 class StudentService {
-    async registerStudent(data: any) {
+    async registerStudent(data: IRegisterStudent) {
         const organization = await organizationRepository.find({
             id: data.organizationId,
         })

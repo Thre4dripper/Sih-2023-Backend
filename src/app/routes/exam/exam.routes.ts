@@ -24,7 +24,7 @@ import { getExamLogsOfStudentController } from '../../apis/exams/controllers/get
 import { getExamLogsOfStudentValidator } from '../../apis/exams/validators/get.exam.logs.valdators'
 const router = express.Router()
 
-router.post('/api/v1/create-exam', verifyOrganization, createExamValidator, createExamController)
+router.post('/api/v1/exam/create-exam', verifyOrganization, createExamValidator, createExamController)
 
 router.post(
     '/api/v1/exam/create-exam-question',

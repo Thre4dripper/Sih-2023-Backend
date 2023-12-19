@@ -8,4 +8,6 @@ export enum ExamLogTypes {
     QuestionAnswerCleared = 'question_answer_cleared',
     QuestionAnswerSubmitted = 'question_answer_submitted',
     ExamSubmitted = 'exam_submitted',
+    LookedAway = 'looked_away',
+    ObjectDetected = 'object_detected',
 }

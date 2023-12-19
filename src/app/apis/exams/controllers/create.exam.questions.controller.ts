@@ -3,15 +3,16 @@ import questionService from '../services/question.service'
 import ResponseBuilder from '../../../utils/ResponseBuilder'
 import { StatusCodes } from '../../../enums/StatusCodes'
 import { SuccessMessages } from '../../../enums/SuccessMessages'
-import { Request, Response } from 'express'
+import { Response } from 'express'
 import { ICreateQuestion } from '../interfaces'
+import { UserRequest } from '../../../common/interfaces'
 
 export const createExamQuestionsController = asyncHandler(
-    async (req: Request<{}, {}, ICreateQuestion>, res: Response) => {
+    async (req: UserRequest<{}, {}, ICreateQuestion, {}>, res: Response) => {
         const data = req.body
 
         const { question, description, questionType, marks, negativeMarks, examId, options } = data
-
+        const { id: organizationId } = req.user
         const response = await questionService.createExamQuestions({
             question,
             description,
@@ -20,6 +21,7 @@ export const createExamQuestionsController = asyncHandler(
             negativeMarks,
             examId,
             options,
+            organizationId,
         })
         return new ResponseBuilder(
             res,
