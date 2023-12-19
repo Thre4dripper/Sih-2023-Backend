@@ -18,7 +18,7 @@ const sequelizeOptions: SequelizeOptions = {
         },
     },
     models: [path.join(__dirname, '..', 'app', 'models')],
-    logging: console.log,
+    logging: false,
     operatorsAliases: {
         $eq: Op.eq,
         $ne: Op.ne,
