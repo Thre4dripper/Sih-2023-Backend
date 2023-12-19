@@ -13,6 +13,7 @@ export enum SuccessMessages {
     PROCTOR_REMOVED = 'Proctor Removed Successfully',
     PROCTOR_LOGGED_IN = 'Proctor Logged In Successfully',
     GET_ALL_PROCTORS = 'All Proctors Fetched Successfully',
+    STUDENT_VERIFIED_SUCCESSFULLY = 'Student Verified Successfully',
 
     //Student
     STUDENT_REGISTERED = 'Student Registered Successfully',
