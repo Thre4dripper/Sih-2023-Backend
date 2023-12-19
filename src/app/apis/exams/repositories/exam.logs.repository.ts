@@ -9,7 +9,7 @@ class ExamLogsRepository {
         return await ExamLog.findOne(data)
     }
 
-    async findAll(examId: number, limit: number, offset: number) {
+    async findAndCountAll(examId: number, limit: number, offset: number) {
         const data = await ExamLog.findAndCountAll({
             where: {
                 examId: examId,
@@ -22,6 +22,15 @@ class ExamLogsRepository {
             attributes: ['id', 'examId', 'studentId', 'createdAt'],
         })
         return data
+    }
+
+    async findAll(data: any) {
+        return await ExamLog.findAll({
+            where: {
+                studentId: data.studentId,
+                examId: data.examId,
+            },
+        })
     }
 }
 
