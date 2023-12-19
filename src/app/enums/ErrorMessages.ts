@@ -17,6 +17,7 @@ export enum ErrorMessages {
     //Student
     STUDENT_ALREADY_EXISTS = 'Student already exists',
     STUDENT_NOT_FOUND = 'Student not found',
+    INVALID_AADHAR_NUMBER = 'Invalid Aadhar number',
 
     //Exams
     EXAM_NOT_FOUND = 'Exam not found',

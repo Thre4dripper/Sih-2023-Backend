@@ -9,14 +9,27 @@ class ExamLogsRepository {
         return await ExamLog.findOne(data)
     }
 
-    async findAll(filter: any, limit: number, offset: number) {
-        return await ExamLog.findAndCountAll({
+    async findAndCountAll(examId: number, limit: number, offset: number) {
+        const data = await ExamLog.findAndCountAll({
             where: {
-                ...filter,
+                examId: examId,
+                logType: 'exam_started',
             },
             limit,
             offset,
+            distinct: true,
             order: [['createdAt', 'DESC']],
+            attributes: ['id', 'examId', 'studentId', 'createdAt'],
+        })
+        return data
+    }
+
+    async findAll(data: any) {
+        return await ExamLog.findAll({
+            where: {
+                studentId: data.studentId,
+                examId: data.examId,
+            },
         })
     }
 }

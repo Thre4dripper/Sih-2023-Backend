@@ -27,6 +27,7 @@ export enum SuccessMessages {
     EXAM_FETCHED = 'Exam Fetched Successfully',
     EXAM_UPDATED = 'Exam Updated Successfully',
     EXAM_INITIATED = 'Exam Initiated Successfully',
+    EXAM_LOGS_FETCHED = 'Exam Logs Fetched Successfully',
 
     //Mail
     EXAM_MAIL_SENT = 'Exam Mail Sent Successfully',

@@ -14,6 +14,8 @@ export const registerStudentValidator = async (
         phone: Joi.string().optional(),
         profilePic: Joi.string().required(),
         organizationId: Joi.number().required(),
+        aadharNumber: Joi.number().min(12).required(),
+        aadharImage: Joi.string(),
         address: Joi.string().optional(),
         city: Joi.string().optional(),
         state: Joi.string().optional(),

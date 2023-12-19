@@ -118,19 +118,30 @@ class examService {
             },
         })
 
-        console.log(exam)
-
         if (!exam) {
             throw new ValidationError('Exam not found')
         }
 
-        const examData = await examLogsRepository.findAll(examId, limit, offset)
+        const examData = await examLogsRepository.findAndCountAll(examId, limit, offset)
 
         if (!examData) {
             throw new ValidationError('Something went wrong')
         }
 
         return examData
+    }
+
+    async getExamLogs(studentId: number, organizationId: number,examId:number) {
+        const examLogs = await examLogsRepository.findAll({
+            studentId,
+            examId,
+        })
+
+        if (!examLogs) {
+            throw new ValidationError('Exam logs not found')
+        }
+
+        return examLogs
     }
 }
 
