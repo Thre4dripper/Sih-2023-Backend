@@ -118,8 +118,6 @@ class examService {
             },
         })
 
-        console.log(exam)
-
         if (!exam) {
             throw new ValidationError('Exam not found')
         }
