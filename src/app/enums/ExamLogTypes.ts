@@ -10,4 +10,5 @@ export enum ExamLogTypes {
     ExamSubmitted = 'exam_submitted',
     LookedAway = 'looked_away',
     ObjectDetected = 'object_detected',
+    ExamLogLLM = 'exam_log_llm',
 }

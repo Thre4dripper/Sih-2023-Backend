@@ -38,3 +38,26 @@ export const verifyAadhaar = async (aadhaarNumber: string) => {
         throw new ValidationError('Invalid Aadhar Number here')
     }
 }
+
+export const verifyPan = async (panNumber: string) => {
+    const url = `https://production.deepvue.tech/v1/verification/panadvanced?pan_number=${panNumber}`
+    const accessToken = await getAccessToken()
+    console.log(accessToken)
+    const headers = {
+        'Authorization': `Bearer ${accessToken}`,
+        'x-api-key': '4f8867fbdb3447f38931d5daad961a9e',
+    }
+
+    const params = {
+        pan_number: panNumber,
+    }
+
+    try {
+        const response = await axios.get(url, { params, headers })
+        console.log(response.data)
+        return response.data.sub_code
+    } catch (err) {
+        console.log(err)
+        throw new ValidationError('Invalid Pan Number here')
+    }
+}
