@@ -44,21 +44,13 @@ class RoomHandler {
         }
 
         if (type === Roles.STUDENT) {
-            const proctors = rooms[payload.roomId].filter((item) => item.type === Roles.PROCTOR)
-            const proctorIds = proctors.map((item) => item.socketId)
-
-            //send all proctors to the new student
-            socket.to(socket.id).emit(SocketEvents.NEW_STUDENT_JOINED, proctors)
-            //send the new student to all proctors
-            socket.to(proctorIds).emit(SocketEvents.NEW_STUDENT_JOINED, [streamData])
+            socket.emit(SocketEvents.NEW_STUDENT_JOINED, {
+                room: rooms[payload.roomId],
+            })
         } else {
-            const students = rooms[payload.roomId].filter((item) => item.type === Roles.STUDENT)
-            const studentIds = students.map((item) => item.socketId)
-
-            //send all students to the new proctor
-            socket.to(socket.id).emit(SocketEvents.NEW_PROCTOR_JOINED, students)
-            //send the new proctor to all students
-            socket.to(studentIds).emit(SocketEvents.NEW_PROCTOR_JOINED, [streamData])
+            socket.emit(SocketEvents.NEW_PROCTOR_JOINED, {
+                room: rooms[payload.roomId],
+            })
         }
         console.log('Rooms', rooms)
     }
@@ -82,6 +74,8 @@ class RoomHandler {
                 .to(roomId)
                 .emit(SocketEvents.LEAVE_EXAM_ROOM, { leftPeerId, rooms: rooms[roomId] })
         }
+
+        console.log('Rooms', rooms)
     }
 }
 
