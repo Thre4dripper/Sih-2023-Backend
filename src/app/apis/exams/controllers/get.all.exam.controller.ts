@@ -12,6 +12,8 @@ export const getAllExamController = asyncHandler(
 
         const { id: organizationId } = req.user
 
+        console.log('organizationId', req.user)
+
         const response = await examService.getAllExams({
             limit: Number(limit),
             offset: Number(offset),

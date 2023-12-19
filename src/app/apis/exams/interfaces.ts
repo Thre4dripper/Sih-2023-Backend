@@ -15,7 +15,7 @@ export interface ICreateQuestion {
     options: ICreateQuestionOption[]
 }
 export interface ICreateExam {
-    id ?: number
+    id?: number
     name: string
     description: string
     duration: number
@@ -24,4 +24,9 @@ export interface ICreateExam {
     totalQuestions: number
     examType: ExamTypes
     organizationId: number
+}
+
+export interface IStartExam {
+    examId: number
+    activities: JSON
 }

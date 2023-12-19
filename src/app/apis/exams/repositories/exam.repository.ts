@@ -21,7 +21,7 @@ class ExamRepository {
         })
     }
 
-    async finOne(data: any) {
+    async findOne(data: any) {
         return Exam.findOne(data)
     }
 

@@ -1,8 +1,10 @@
 import { ICreateExam } from '../interfaces'
 import examRepository from '../repositories/exam.repository'
+import examLogsRepository from '../repositories/exam.logs.repository'
 import organizationRepository from '../../organization/repositories/organization.repository'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
+import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 
 class examService {
     async createExam(data: ICreateExam) {
@@ -29,7 +31,7 @@ class examService {
     }
 
     async getExamById(examId: number, organizationId: number) {
-        const result = await examRepository.finOne({
+        const result = await examRepository.findOne({
             where: {
                 id: examId,
             },
@@ -50,7 +52,7 @@ class examService {
 
     async updateExam(data: ICreateExam) {
         const { id, organizationId } = data
-        const exam = await examRepository.finOne({
+        const exam = await examRepository.findOne({
             where: {
                 id,
             },
@@ -65,6 +67,70 @@ class examService {
         }
 
         return await examRepository.update(data)
+    }
+
+    async startExam(data: { examId: number; studentId: number; activities: JSON }) {
+        const { examId, studentId, activities } = data
+
+        const exam = await examRepository.findOne({
+            where: {
+                id: examId,
+            },
+        })
+
+        const examLogData = await examLogsRepository.findOne({
+            examId,
+            studentId,
+        })
+
+        if (examLogData) {
+            throw new ValidationError('Exam already started')
+        }
+
+        if (!exam) {
+            throw new ValidationError('Exam not found')
+        }
+
+        if (exam.startTime > new Date()) {
+            throw new ValidationError('Exam not started yet')
+        }
+
+        const examLog = await examLogsRepository.create({
+            examId,
+            studentId,
+            activities,
+            logType: ExamLogTypes.ExamStarted,
+        })
+
+        if (!examLog) {
+            throw new ValidationError('Something went wrong')
+        }
+
+        return examLog
+    }
+
+    async getAllStudentByExamId(data: { examId: number; limit: number; offset: number }) {
+        const { examId, limit, offset } = data
+
+        const exam = await examRepository.findOne({
+            where: {
+                id: examId,
+            },
+        })
+
+        console.log(exam)
+
+        if (!exam) {
+            throw new ValidationError('Exam not found')
+        }
+
+        const examData = await examLogsRepository.findAll(examId, limit, offset)
+
+        if (!examData) {
+            throw new ValidationError('Something went wrong')
+        }
+
+        return examData
     }
 }
 
