@@ -31,10 +31,6 @@ class LiveExamService {
             throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
-        if (exam.startTime > new Date()) {
-            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
-        }
-
         const examLog = await examLogsRepository.create({
             examId,
             studentId,
@@ -72,10 +68,6 @@ class LiveExamService {
 
         if (!exam) {
             throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
-        }
-
-        if (exam.startTime > new Date()) {
-            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
         }
 
         const examLog = await examLogsRepository.create({

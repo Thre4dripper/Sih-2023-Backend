@@ -92,6 +92,12 @@ class StudentService {
         return studentRepository.getAllStudents(limit, offset, organizationId)
     }
 
+    async getAllStudentsByIds(studentIds: number[]) {
+        return studentRepository.findAll({
+            id: studentIds,
+        })
+    }
+
     async getStudentProfile(studentId: number) {
         return studentRepository.find({
             id: studentId,
