@@ -6,6 +6,7 @@ import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import questionsRepository from '../../exams/repositories/questions.repository'
 import { IGetLiveExamQuestions, ISubmitExamQues } from '../interfaces'
+import examLogService from '../../exams/services/exam.log.service'
 
 class LiveExamService {
     async startExam(data: { examId: number; studentId: number }) {
@@ -237,6 +238,7 @@ class LiveExamService {
         })
 
         if (existingLog) {
+            await examLogService.fetchExamLogs(examId, studentId)
             return liveExamLogRepository.updateSubmittedQuestion(existingLog.id, {
                 activities: {
                     questions: {
@@ -247,6 +249,7 @@ class LiveExamService {
             })
         }
 
+        await examLogService.fetchExamLogs(examId, studentId)
         return liveExamLogRepository.submitQuestion({
             examId,
             studentId,
