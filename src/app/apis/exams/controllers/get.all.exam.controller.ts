@@ -5,15 +5,17 @@ import { StatusCodes } from '../../../enums/StatusCodes'
 import { SuccessMessages } from '../../../enums/SuccessMessages'
 import { UserRequest } from '../../../common/interfaces'
 import { Response } from 'express'
+import { Roles } from '../../../enums/Roles'
 
 export const getAllExamController = asyncHandler(
     async (req: UserRequest<{}, {}, {}, { limit: number; offset: number }>, res: Response) => {
         const { limit, offset } = req.query
 
-        const { id: organizationId } = req.user
+        let { id: organizationId, role } = req.user
 
-        console.log('organizationId', req.user)
-
+        if (role === Roles.PROCTOR) {
+            organizationId = req.user.organizationId
+        }
         const response = await examService.getAllExams({
             limit: Number(limit),
             offset: Number(offset),

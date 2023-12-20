@@ -19,7 +19,7 @@ export const finishExamController = asyncHandler(
             res,
             StatusCodes.SUCCESS,
             response,
-            SuccessMessages.EXAM_INITIATED
+            SuccessMessages.EXAM_FINISHED
         )
     }
 )

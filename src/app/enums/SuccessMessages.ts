@@ -27,7 +27,6 @@ export enum SuccessMessages {
     GET_ALL_EXAM_QUESTIONS = 'All Exam Questions Fetched Successfully',
     EXAM_FETCHED = 'Exam Fetched Successfully',
     EXAM_UPDATED = 'Exam Updated Successfully',
-    EXAM_INITIATED = 'Exam Initiated Successfully',
     EXAM_LOGS_FETCHED = 'Exam Logs Fetched Successfully',
 
     //Mail
@@ -36,5 +35,5 @@ export enum SuccessMessages {
     //Live Exams
     EXAM_STARTED = 'Exam Started Successfully',
     EXAM_QUESTION_SUBMITTED = 'Exam Question Submitted Successfully',
-    EXAM_COMPLETED = 'Exam Completed Successfully',
+    EXAM_FINISHED = 'Exam Finished Successfully',
 }
