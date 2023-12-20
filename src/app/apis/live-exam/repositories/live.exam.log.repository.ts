@@ -25,6 +25,16 @@ class LiveExamLogRepository {
             },
         })
     }
+
+    async getSubmittedQuestions(examId: number, studentId: number) {
+        return ExamLog.findOne({
+            where: {
+                examId,
+                studentId,
+                logType: ExamLogTypes.QuestionAnswered,
+            },
+        })
+    }
 }
 
 export default new LiveExamLogRepository()
