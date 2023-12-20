@@ -31,28 +31,23 @@ class ExamService {
     }
 
     async getExamById(examId: number, organizationId: number) {
-        const result = await examRepository.findOne({
-            where: {
-                id: examId,
-            },
+        const exam = await examRepository.findOne({
+            id: examId,
+            organizationId,
         })
 
-        if (!result) {
-            throw new ValidationError('Exam not found')
+        if (!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
-        console.log(examId, organizationId)
-
-        return result
+        return exam
     }
 
     async updateExam(data: ICreateExam) {
         const { id, organizationId } = data
         const exam = await examRepository.findOne({
-            where: {
-                id,
-                organizationId,
-            },
+            id,
+            organizationId,
         })
 
         if (!exam) {
@@ -66,9 +61,7 @@ class ExamService {
         const { examId, limit, offset } = data
 
         const exam = await examRepository.findOne({
-            where: {
-                id: examId,
-            },
+            id: examId,
         })
 
         if (!exam) {

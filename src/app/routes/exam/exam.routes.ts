@@ -53,6 +53,7 @@ router.get(
 
 router.get(
     '/api/v1/exam/get-exam-by-id',
+    verifyOrganization,
     getExamByIdValidator,
     getExamByIdController
 )

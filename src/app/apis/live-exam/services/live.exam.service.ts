@@ -12,9 +12,7 @@ class LiveExamService {
         const { examId, studentId } = data
 
         const exam = await examRepository.findOne({
-            where: {
-                id: examId,
-            },
+            id: examId,
         })
 
         const examLogData = await liveExamLogRepository.find({
@@ -51,9 +49,7 @@ class LiveExamService {
         const { examId, studentId } = data
 
         const exam = await examRepository.findOne({
-            where: {
-                id: examId,
-            },
+            id: examId,
         })
 
         const examLogData = await liveExamLogRepository.find({
@@ -90,9 +86,7 @@ class LiveExamService {
         const { examId, studentId, organizationId } = data
 
         const exam = await examRepository.findOne({
-            where: {
-                id: examId,
-            },
+            id: examId,
         })
 
         if (!exam) {
@@ -120,9 +114,7 @@ class LiveExamService {
         }
 
         const student = await examRepository.findOne({
-            where: {
-                id: studentId,
-            },
+            id: examId,
         })
 
         if (!student) {
