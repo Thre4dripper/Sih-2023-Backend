@@ -5,6 +5,7 @@ import { ErrorMessages } from '../../../enums/ErrorMessages'
 import EncryptionUtil from '../../../utils/EncryptionUtil'
 import { IGetAllProctors, ILoginProctor } from '../interfaces'
 import organizationRepository from '../../organization/repositories/organization.repository'
+import studentRepository from '../../student/repositories/student.repository'
 
 class ProctorService {
     async loginProctor(data: ILoginProctor) {
@@ -49,7 +50,7 @@ class ProctorService {
 
     async verifyStudent(data: { studentId: number }) {
         const { studentId } = data
-        const student = await proctorRepository.find({ id: studentId, role: Roles.STUDENT })
+        const student = await studentRepository.find({ id: studentId, role: Roles.STUDENT })
 
         if (!student) {
             throw new ValidationError(ErrorMessages.STUDENT_NOT_FOUND)
@@ -59,7 +60,7 @@ class ProctorService {
             isVerified: 1,
         }
 
-        await proctorRepository.updateStudent({ id: studentId }, updateData)
+        await proctorRepository.verifyStudent({ id: studentId }, updateData)
 
         return student
     }

@@ -1,5 +1,5 @@
 import express from 'express'
-import { verifyOrgAndProctor, verifyOrganization } from '../../middlewares/UserAuth'
+import { verifyOrgAndProctor, verifyOrganization, verifyProctor } from '../../middlewares/UserAuth'
 import { createExamController } from '../../apis/exams/controllers/create.exams.controller'
 import { createExamValidator } from '../../apis/exams/validators/create.exam.validators'
 import { createExamQuestionsController } from '../../apis/exams/controllers/create.exam.questions.controller'
@@ -88,7 +88,7 @@ router.get(
 
 router.get(
     '/api/v1/exam/get-student-logs',
-    verifyOrganization,
+    verifyProctor,
     getExamLogsOfStudentValidator,
     getExamLogsOfStudentController
 )

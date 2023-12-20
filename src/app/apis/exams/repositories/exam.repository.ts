@@ -21,20 +21,15 @@ class ExamRepository {
         })
     }
 
-    async findOne(data: any) {
-        return Exam.findOne(data)
+    async findOne(filter: {}) {
+        return Exam.findOne({
+            where: filter,
+        })
     }
 
-    async update(data: any) {
-        await Exam.update(data, {
-            where: {
-                id: data.id,
-            },
-        })
-        return Exam.findOne({
-            where: {
-                id: data.id,
-            },
+    async update(data: any, filter: any) {
+        return Exam.update(data, {
+            where: filter,
         })
     }
 }

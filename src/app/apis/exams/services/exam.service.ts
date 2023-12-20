@@ -4,6 +4,7 @@ import examLogsRepository from '../repositories/exam.logs.repository'
 import organizationRepository from '../../organization/repositories/organization.repository'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
+import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 
 class ExamService {
     async createExam(data: ICreateExam) {
@@ -30,51 +31,37 @@ class ExamService {
     }
 
     async getExamById(examId: number, organizationId: number) {
-        const result = await examRepository.findOne({
-            where: {
-                id: examId,
-            },
+        const exam = await examRepository.findOne({
+            id: examId,
+            organizationId,
         })
 
-        if (!result) {
-            throw new ValidationError('Exam not found')
+        if (!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
-        console.log(examId, organizationId)
-
-        if (result.organizationId !== organizationId) {
-            throw new ValidationError('Exam not found')
-        }
-
-        return result
+        return exam
     }
 
     async updateExam(data: ICreateExam) {
         const { id, organizationId } = data
         const exam = await examRepository.findOne({
-            where: {
-                id,
-            },
+            id,
+            organizationId,
         })
 
         if (!exam) {
-            throw new ValidationError('Exam not found')
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
-        if (exam.organizationId !== organizationId) {
-            throw new ValidationError('Exam not found')
-        }
-
-        return await examRepository.update(data)
+        return await examRepository.update(data, { id })
     }
 
     async getAllStudentByExamId(data: { examId: number; limit: number; offset: number }) {
         const { examId, limit, offset } = data
 
         const exam = await examRepository.findOne({
-            where: {
-                id: examId,
-            },
+            id: examId,
         })
 
         if (!exam) {
@@ -90,14 +77,15 @@ class ExamService {
         return examData
     }
 
-    async getExamLogs(studentId: number, organizationId: number,examId:number) {
+    async getExamLogs(studentId: number, examId: number) {
         const examLogs = await examLogsRepository.findAll({
             studentId,
             examId,
+            logType: ExamLogTypes.ExamLogLLM,
         })
 
         if (!examLogs) {
-            throw new ValidationError('Exam logs not found')
+            throw new ValidationError(ErrorMessages.LOGS_NOT_FOUND)
         }
 
         return examLogs

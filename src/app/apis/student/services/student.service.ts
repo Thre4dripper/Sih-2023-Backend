@@ -72,6 +72,10 @@ class StudentService {
             throw new ValidationError(ErrorMessages.STUDENT_NOT_FOUND)
         }
 
+        if(student.isVerified === 0){
+            throw new ValidationError(ErrorMessages.STUDENT_NOT_VERIFIED)
+        }
+
         const isPasswordValid = await EncryptionUtil.comparePassword(
             data.password,
             student.password
@@ -90,6 +94,12 @@ class StudentService {
     async getAllStudents(data: { limit: number; offset: number; organizationId: number }) {
         const { limit, offset, organizationId } = data
         return studentRepository.getAllStudents(limit, offset, organizationId)
+    }
+
+    async getAllStudentsByIds(studentIds: number[]) {
+        return studentRepository.findAll({
+            id: studentIds,
+        })
     }
 
     async getStudentProfile(studentId: number) {

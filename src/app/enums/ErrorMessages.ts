@@ -19,6 +19,7 @@ export enum ErrorMessages {
     STUDENT_NOT_FOUND = 'Student not found',
     INVALID_AADHAR_NUMBER = 'Invalid Aadhar number',
     INVALID_PAN_NUMBER = 'Invalid Pan number',
+    STUDENT_NOT_VERIFIED = 'Student not verified',
 
     //Exams
     EXAM_NOT_FOUND = 'Exam not found',
@@ -27,4 +28,8 @@ export enum ErrorMessages {
     EXAM_ALREADY_FINISHED = 'Exam already finished',
     EXAM_NOT_FINISHED = 'Exam not finished yet',
     QUESTION_NOT_FOUND = 'Question not found',
+    EXAM_QUESTIONS_LIMIT_REACHED = 'Exam questions limit reached',
+
+    //Logs
+    LOGS_NOT_FOUND = 'Logs not found',
 }
