@@ -1,4 +1,5 @@
 import ExamLog from '../../../models/exam.log.model'
+import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 
 class LiveExamLogRepository {
     async find(filter: {}) {
