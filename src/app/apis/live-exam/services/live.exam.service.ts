@@ -240,6 +240,7 @@ class LiveExamService {
             return liveExamLogRepository.updateSubmittedQuestion(existingLog.id, {
                 activities: {
                     questions: {
+                        ...existingLog.toJSON().activities.questions,
                         [questionId]: options,
                     },
                 },

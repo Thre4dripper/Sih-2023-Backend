@@ -5,6 +5,7 @@ import { StatusCodes } from '../../../enums/StatusCodes'
 import { SuccessMessages } from '../../../enums/SuccessMessages'
 import { Response } from 'express'
 import { UserRequest } from '../../../common/interfaces'
+// import examLogService from '../services/exam.log.service'
 
 export const getExamByIdController = asyncHandler(
     async (
@@ -21,6 +22,8 @@ export const getExamByIdController = asyncHandler(
         // const { id: organizationId } = req.user
 
         const { examId } = req.query
+
+        // await examLogService.fetchExamLogs(6,4)
 
         const response = await examService.getExamById(examId, 0)
         return new ResponseBuilder(res, StatusCodes.SUCCESS, response, SuccessMessages.EXAM_FETCHED)

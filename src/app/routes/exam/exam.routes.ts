@@ -20,6 +20,8 @@ import { getAllStudentByExamIdValidator } from '../../apis/exams/validators/get.
 import { getAllStudentsForExamController } from '../../apis/exams/controllers/get.all.student.by.examId.controller'
 import { getExamLogsOfStudentController } from '../../apis/exams/controllers/get.exam.logs.by.student.id.controller'
 import { getExamLogsOfStudentValidator } from '../../apis/exams/validators/get.exam.logs.valdators'
+import { generateLlmValidator } from '../../apis/exams/validators/generate.llm.validator'
+import { generateLlmController } from '../../apis/exams/controllers/generate.llm.controller'
 
 const router = express.Router()
 
@@ -90,6 +92,13 @@ router.get(
     verifyProctor,
     getExamLogsOfStudentValidator,
     getExamLogsOfStudentController
+)
+
+router.post(
+    '/api/v1/exam/generate-llm',
+    verifyOrgAndProctor,
+    generateLlmValidator,
+    generateLlmController
 )
 
 export default router
