@@ -43,8 +43,8 @@ class ProctorRepository {
         }
     }
 
-    async updateStudent(data: { id: number }, updateData: {}) {
-    
+    async verifyStudent(data: { id: number }, updateData: {}) {
+
         await User.update(updateData, {
             where: {
                 id: data.id,

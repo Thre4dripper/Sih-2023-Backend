@@ -17,6 +17,12 @@ class QuestionService {
         if (!exam) {
             throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
+
+        const questionsCount = await ExamQuestionRepository.getExamQuestionsCount(data.examId)
+
+        if(questionsCount >= exam.totalQuestions) {
+            throw new ValidationError(ErrorMessages.EXAM_QUESTIONS_LIMIT_REACHED)
+        }
         const question = await ExamQuestionRepository.create(data)
 
         const { id } = question

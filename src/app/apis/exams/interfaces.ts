@@ -26,10 +26,3 @@ export interface ICreateExam {
     examType: ExamTypes
     organizationId: number
 }
-
-export interface ISubmitExamQues {
-    examId: number
-    studentId: number
-    questionId: number
-    options: number[]
-}

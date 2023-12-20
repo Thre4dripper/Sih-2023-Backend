@@ -1,20 +1,23 @@
-import { ISubmitExamQues } from '../../exams/interfaces'
 import examLogsRepository from '../../exams/repositories/exam.logs.repository'
 import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 import liveExamLogRepository from '../repositories/live.exam.log.repository'
 import examRepository from '../../exams/repositories/exam.repository'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
+import questionsRepository from '../../exams/repositories/questions.repository'
+import { IGetLiveExamQuestions, ISubmitExamQues } from '../interfaces'
 
 class LiveExamService {
     async startExam(data: { examId: number; studentId: number }) {
         const { examId, studentId } = data
 
         const exam = await examRepository.findOne({
-            where: {
-                id: examId,
-            },
+            id: examId,
         })
+
+        if (!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
+        }
 
         const examLogData = await liveExamLogRepository.find({
             examId,
@@ -26,15 +29,7 @@ class LiveExamService {
             throw new ValidationError(ErrorMessages.EXAM_ALREADY_STARTED)
         }
 
-        if (!exam) {
-            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
-        }
-
-        if (exam.startTime > new Date()) {
-            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
-        }
-
-        const examLog = await examLogsRepository.create({
+        return await examLogsRepository.create({
             examId,
             studentId,
             activities: {
@@ -42,22 +37,18 @@ class LiveExamService {
             },
             logType: ExamLogTypes.ExamStarted,
         })
-
-        if (!examLog) {
-            throw new ValidationError('Something went wrong')
-        }
-
-        return examLog
     }
 
     async finishExam(data: { examId: number; studentId: number }) {
         const { examId, studentId } = data
 
         const exam = await examRepository.findOne({
-            where: {
-                id: examId,
-            },
+            id: examId,
         })
+
+        if (!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
+        }
 
         const examLogData = await liveExamLogRepository.find({
             examId,
@@ -69,15 +60,7 @@ class LiveExamService {
             throw new ValidationError(ErrorMessages.EXAM_ALREADY_FINISHED)
         }
 
-        if (!exam) {
-            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
-        }
-
-        if (exam.startTime > new Date()) {
-            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
-        }
-
-        const examLog = await examLogsRepository.create({
+        return await examLogsRepository.create({
             examId,
             studentId,
             activities: {
@@ -85,12 +68,89 @@ class LiveExamService {
             },
             logType: ExamLogTypes.ExamFinished,
         })
+    }
 
-        if (!examLog) {
-            throw new ValidationError('Something went wrong')
+    async getQuestions(data: IGetLiveExamQuestions) {
+        const { examId, studentId, organizationId } = data
+
+        const exam = await examRepository.findOne({
+            id: examId,
+        })
+
+        if (!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
-        return examLog
+        const examStartedLog = await liveExamLogRepository.find({
+            examId,
+            studentId,
+            logType: ExamLogTypes.ExamStarted,
+        })
+
+        //exam must be started
+        if (!examStartedLog) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
+        }
+
+        const examFinishedLog = await liveExamLogRepository.find({
+            examId,
+            studentId,
+            logType: ExamLogTypes.ExamFinished,
+        })
+
+        //the exam must not be finished
+        if (examFinishedLog) {
+            throw new ValidationError(ErrorMessages.EXAM_ALREADY_FINISHED)
+        }
+
+        const student = await examRepository.findOne({
+            id: examId,
+        })
+
+        if (!student) {
+            throw new ValidationError(ErrorMessages.STUDENT_NOT_FOUND)
+        }
+
+        const questionsResult = await questionsRepository.getAllQuestions(
+            examId,
+            organizationId,
+            exam.totalQuestions,
+            0
+        )
+
+        const questions = questionsResult.rows.map((question) => {
+            return {
+                ...question.toJSON(),
+                options: question.dataValues.options.map((option) => {
+                    return {
+                        ...option.toJSON(),
+                        isCorrect: false,
+                    }
+                }),
+            }
+        })
+
+        const quesFromLog = await liveExamLogRepository.getSubmittedQuestions(examId, studentId)
+
+        if (quesFromLog) {
+            const { activities } = quesFromLog.toJSON()
+            const { questions: submittedQuestions } = activities
+
+            questions.forEach((question) => {
+                const { id } = question
+
+                if (submittedQuestions[id]) {
+                    question.options.map((option) => {
+                        if (submittedQuestions[id].includes(option.id)) {
+                            option.isCorrect = true
+                        }
+                        return option
+                    })
+                }
+            })
+        }
+
+        return questions
     }
 
     async submitQuestion(data: ISubmitExamQues) {

@@ -16,11 +16,7 @@ class MailService {
         let [exam, organization, students] = await Promise.all([
             examService.getExamById(examId, organizationId),
             organizationService.getOrganizationById(organizationId),
-            studentService.getAllStudents({
-                limit: studentIds.length,
-                offset: 0,
-                organizationId,
-            }),
+            studentService.getAllStudentsByIds(studentIds),
         ])
 
         exam = exam.toJSON()
@@ -34,7 +30,7 @@ class MailService {
             throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
-        if (!students || students.rows.length === 0) {
+        if (!students || students.length === 0) {
             throw new ValidationError(ErrorMessages.STUDENT_NOT_FOUND)
         }
 
@@ -62,9 +58,12 @@ class MailService {
             .replace(new RegExp(/_DURATION_/g), duration.toString())
             .replace(new RegExp(/_NUMBER_OF_QUESTIONS_/g), numberOfQuestions.toString())
             .replace(new RegExp(/_TYPE_/g), type)
-            .replace(new RegExp(/_EXAM_LINK_/g), `http://localhost:5173/exams/${examId}/start/`)
+            .replace(
+                new RegExp(/_EXAM_LINK_/g),
+                `http://localhost:5173/?modal=login&examId=${examId}`
+            )
 
-        const mailPromises = students.rows.map((student) => {
+        const mailPromises = students.map((student) => {
             return globalEmailService.sendEmail(student.toJSON().email, html)
         })
 

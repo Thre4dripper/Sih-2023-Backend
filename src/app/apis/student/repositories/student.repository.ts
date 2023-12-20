@@ -9,6 +9,12 @@ class StudentRepository {
         })
     }
 
+    async findAll(filter: {}) {
+        return User.findAll({
+            where: filter,
+        })
+    }
+
     async create(data: any) {
         return User.create(data)
     }

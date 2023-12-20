@@ -1,5 +1,5 @@
 import express from 'express'
-import { verifyOrgAndProctor, verifyOrganization } from '../../middlewares/UserAuth'
+import { verifyOrgAndProctor, verifyOrganization, verifyProctor } from '../../middlewares/UserAuth'
 import { createExamController } from '../../apis/exams/controllers/create.exams.controller'
 import { createExamValidator } from '../../apis/exams/validators/create.exam.validators'
 import { createExamQuestionsController } from '../../apis/exams/controllers/create.exam.questions.controller'
@@ -20,9 +20,15 @@ import { getAllStudentByExamIdValidator } from '../../apis/exams/validators/get.
 import { getAllStudentsForExamController } from '../../apis/exams/controllers/get.all.student.by.examId.controller'
 import { getExamLogsOfStudentController } from '../../apis/exams/controllers/get.exam.logs.by.student.id.controller'
 import { getExamLogsOfStudentValidator } from '../../apis/exams/validators/get.exam.logs.valdators'
+
 const router = express.Router()
 
-router.post('/api/v1/exam/create-exam', verifyOrganization, createExamValidator, createExamController)
+router.post(
+    '/api/v1/exam/create-exam',
+    verifyOrganization,
+    createExamValidator,
+    createExamController
+)
 
 router.post(
     '/api/v1/exam/create-exam-question',
@@ -67,7 +73,7 @@ router.post(
 )
 
 router.post(
-    '/api/v1/send-exam-mail',
+    '/api/v1/exam/send-exam-mail',
     verifyOrganization,
     sendExamMailValidator,
     sendExamMailController
@@ -82,7 +88,7 @@ router.get(
 
 router.get(
     '/api/v1/exam/get-student-logs',
-    verifyOrganization,
+    verifyProctor,
     getExamLogsOfStudentValidator,
     getExamLogsOfStudentController
 )

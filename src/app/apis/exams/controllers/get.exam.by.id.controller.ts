@@ -23,6 +23,6 @@ export const getExamByIdController = asyncHandler(
         const { examId } = req.query
 
         const response = await examService.getExamById(examId, organizationId)
-        return new ResponseBuilder(res, StatusCodes.SUCCESS, response, SuccessMessages.EXAM_FETCHED)
+        return new ResponseBuilder(res, StatusCodes.SUCCESS, response, SuccessMessages.EXAM_QUESTION_DELETED)
     }
 )

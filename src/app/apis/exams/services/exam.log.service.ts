@@ -1,6 +1,10 @@
 import examLogsRepository from '../repositories/exam.logs.repository'
 import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 import examRepository from '../repositories/exam.repository'
+import { ValidationError } from '../../../handlers/CustomErrorHandler'
+import { ErrorMessages } from '../../../enums/ErrorMessages'
+import studentRepository from '../../student/repositories/student.repository'
+
 const { GoogleGenerativeAI } = require('@google/generative-ai')
 const genAI = new GoogleGenerativeAI('AIzaSyAutft5LTDzCI96XHP3grWj6XJ___drasc')
 
@@ -11,6 +15,22 @@ class ExamLogService {
             studentId,
             logType: ExamLogTypes.LookedAway,
         })
+
+        const exam = await examRepository.findOne({
+            id: examId,
+        })
+
+        if (!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
+        }
+
+        const student = await studentRepository.find({
+            id: studentId,
+        })
+
+        if (!student) {
+            throw new ValidationError(ErrorMessages.STUDENT_NOT_FOUND)
+        }
 
         if (existingLog?.activities?.activities.length >= 20) {
             return
@@ -51,6 +71,22 @@ class ExamLogService {
             studentId,
             logType: ExamLogTypes.ObjectDetected,
         })
+
+        const exam = await examRepository.findOne({
+            id: examId,
+        })
+
+        if (!exam) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
+        }
+
+        const student = await studentRepository.find({
+            id: studentId,
+        })
+
+        if (!student) {
+            throw new ValidationError(ErrorMessages.STUDENT_NOT_FOUND)
+        }
 
         if (existingLog?.activities?.activities.length >= 20) {
             return
@@ -93,15 +129,16 @@ class ExamLogService {
         })
 
         if (!logs) {
-            const examStartTime = await examRepository.findOne({
-                where: {
-                    id: examId,
-                },
+            const exam = await examRepository.findOne({
+                id: examId,
             })
 
-            const time = new Date(examStartTime.startTime)
+            if (!exam) {
+                throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
+            }
+
+            const time = new Date(exam.startTime)
             time.setMinutes(time.getMinutes() + 15)
-            console.log('time', time)
 
             const initialLogs = await examLogsRepository.findAll({
                 examId,
@@ -172,7 +209,7 @@ class ExamLogService {
             const response = await result.response
             const llmData = response.text()
 
-            const data = await examLogsRepository.update(logs.id, {
+            return await examLogsRepository.update(logs.id, {
                 activities: {
                     activities: [
                         ...logs.activities.activities,
@@ -183,8 +220,6 @@ class ExamLogService {
                     ],
                 },
             })
-
-            return data
         }
     }
 }

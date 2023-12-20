@@ -27,15 +27,19 @@ class StudentService {
             throw new ValidationError(ErrorMessages.STUDENT_ALREADY_EXISTS)
         }
         const { aadharNumber, panNumber } = data
-        const panNumberValidate = await verifyPan(panNumber.toString())
-        const aadharValidate = await verifyAadhaar(aadharNumber.toString())
-        console.log(panNumberValidate)
-        if (panNumberValidate === 'INVALID_PAN_NUMBER') {
-            throw new ValidationError(ErrorMessages.INVALID_PAN_NUMBER)
+        if (aadharNumber) {
+            const aadharValidate = await verifyAadhaar(aadharNumber.toString())
+            console.log(aadharValidate)
+            if (aadharValidate === 'INVALID_AADHAAR_NUMBER') {
+                throw new ValidationError(ErrorMessages.INVALID_AADHAR_NUMBER)
+            }
         }
-        console.log(aadharValidate)
-        if (aadharValidate === 'INVALID_AADHAAR_NUMBER') {
-            throw new ValidationError(ErrorMessages.INVALID_AADHAR_NUMBER)
+        if (panNumber) {
+            const panNumberValidate = await verifyPan(panNumber.toString())
+            if (panNumberValidate === 'INVALID_PAN_NUMBER') {
+                throw new ValidationError(ErrorMessages.INVALID_PAN_NUMBER)
+            }
+            console.log(panNumberValidate)
         }
 
         data.role = Roles.STUDENT
@@ -68,6 +72,10 @@ class StudentService {
             throw new ValidationError(ErrorMessages.STUDENT_NOT_FOUND)
         }
 
+        if(student.isVerified === 0){
+            throw new ValidationError(ErrorMessages.STUDENT_NOT_VERIFIED)
+        }
+
         const isPasswordValid = await EncryptionUtil.comparePassword(
             data.password,
             student.password
@@ -86,6 +94,18 @@ class StudentService {
     async getAllStudents(data: { limit: number; offset: number; organizationId: number }) {
         const { limit, offset, organizationId } = data
         return studentRepository.getAllStudents(limit, offset, organizationId)
+    }
+
+    async getAllStudentsByIds(studentIds: number[]) {
+        return studentRepository.findAll({
+            id: studentIds,
+        })
+    }
+
+    async getStudentProfile(studentId: number) {
+        return studentRepository.find({
+            id: studentId,
+        })
     }
 }
 

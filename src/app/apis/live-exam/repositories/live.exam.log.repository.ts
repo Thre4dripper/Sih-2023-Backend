@@ -1,4 +1,5 @@
 import ExamLog from '../../../models/exam.log.model'
+import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 
 class LiveExamLogRepository {
     async find(filter: {}) {
@@ -21,6 +22,16 @@ class LiveExamLogRepository {
         return await ExamLog.findOne({
             where: {
                 id,
+            },
+        })
+    }
+
+    async getSubmittedQuestions(examId: number, studentId: number) {
+        return ExamLog.findOne({
+            where: {
+                examId,
+                studentId,
+                logType: ExamLogTypes.QuestionAnswered,
             },
         })
     }
