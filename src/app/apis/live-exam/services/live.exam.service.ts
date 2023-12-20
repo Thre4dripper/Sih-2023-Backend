@@ -180,6 +180,28 @@ class LiveExamService {
     async submitQuestion(data: ISubmitExamQues) {
         const { examId, studentId, questionId, options } = data
 
+        //check exam started log
+        const examStartedLog = await liveExamLogRepository.find({
+            examId,
+            studentId,
+            logType: ExamLogTypes.ExamStarted,
+        })
+
+        if (!examStartedLog) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
+        }
+
+        //check exam finished log
+        const examFinishedLog = await liveExamLogRepository.find({
+            examId,
+            studentId,
+            logType: ExamLogTypes.ExamFinished,
+        })
+
+        if (examFinishedLog) {
+            throw new ValidationError(ErrorMessages.EXAM_ALREADY_FINISHED)
+        }
+
         const existingLog = await examLogsRepository.findOne({
             examId,
             studentId,
