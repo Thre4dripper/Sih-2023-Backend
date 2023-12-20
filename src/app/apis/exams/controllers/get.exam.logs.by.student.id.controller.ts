@@ -13,17 +13,22 @@ export const getExamLogsOfStudentController = asyncHandler(
             {},
             {},
             {
-                studentId: number,
+                studentId: number
                 examId: number
             }
         >,
         res: Response
     ) => {
-        const { id: organizationId } = req.user
+        const { organizationId } = req.user
 
-        const { studentId,examId } = req.query
+        const { studentId, examId } = req.query
 
-        const response = await examService.getExamLogs(studentId, organizationId,examId)
-        return new ResponseBuilder(res, StatusCodes.SUCCESS, response, SuccessMessages.EXAM_LOGS_FETCHED)
+        const response = await examService.getExamLogs(studentId, organizationId, examId)
+        return new ResponseBuilder(
+            res,
+            StatusCodes.SUCCESS,
+            response,
+            SuccessMessages.EXAM_LOGS_FETCHED
+        )
     }
 )
