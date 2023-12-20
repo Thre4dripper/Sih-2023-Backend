@@ -42,6 +42,14 @@ class ExamQuestionRepository {
             where: data,
         })
     }
+
+    async getExamQuestionsCount(examId: number) {
+        return ExamQuestion.count({
+            where: {
+                examId,
+            },
+        })
+    }
 }
 
 export default new ExamQuestionRepository()
