@@ -18,11 +18,11 @@ export const getExamByIdController = asyncHandler(
         >,
         res: Response
     ) => {
-        const { id: organizationId } = req.user
+        // const { id: organizationId } = req.user
 
         const { examId } = req.query
 
-        const response = await examService.getExamById(examId, organizationId)
+        const response = await examService.getExamById(examId, 0)
         return new ResponseBuilder(res, StatusCodes.SUCCESS, response, SuccessMessages.EXAM_FETCHED)
     }
 )

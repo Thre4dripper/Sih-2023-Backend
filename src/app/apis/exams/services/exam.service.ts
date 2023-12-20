@@ -4,6 +4,7 @@ import examLogsRepository from '../repositories/exam.logs.repository'
 import organizationRepository from '../../organization/repositories/organization.repository'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
+import { ExamLogTypes } from '../../../enums/ExamLogTypes'
 
 class ExamService {
     async createExam(data: ICreateExam) {
@@ -41,10 +42,6 @@ class ExamService {
         }
 
         console.log(examId, organizationId)
-
-        if (result.organizationId !== organizationId) {
-            throw new ValidationError('Exam not found')
-        }
 
         return result
     }
@@ -94,6 +91,7 @@ class ExamService {
         const examLogs = await examLogsRepository.findAll({
             studentId,
             examId,
+            logType: ExamLogTypes.ExamLogLLM,
         })
 
         if (!examLogs) {
