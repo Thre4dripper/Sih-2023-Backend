@@ -4,6 +4,7 @@ import examLogsRepository from '../repositories/exam.logs.repository'
 import organizationRepository from '../../organization/repositories/organization.repository'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
+import mailRepository from '../../organization/repositories/mail.repository'
 
 class ExamService {
     async createExam(data: ICreateExam) {
@@ -81,7 +82,11 @@ class ExamService {
             throw new ValidationError('Exam not found')
         }
 
-        const examData = await examLogsRepository.findAndCountAll(examId, limit, offset)
+        const examData = await mailRepository.findAll({
+            examId,
+            limit,
+            offset,
+        })
 
         if (!examData) {
             throw new ValidationError('Something went wrong')
@@ -90,11 +95,11 @@ class ExamService {
         return examData
     }
 
-    async getExamLogs(studentId: number, organizationId: number,examId:number) {
+    async getExamLogs(studentId: number, organizationId: number, examId: number) {
         const examLogs = await examLogsRepository.findAll({
             studentId,
             examId,
-        })
+                    })
 
         if (!examLogs) {
             throw new ValidationError('Exam logs not found')

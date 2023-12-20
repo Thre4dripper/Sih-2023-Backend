@@ -7,6 +7,7 @@ import studentService from '../../student/services/student.service'
 import organizationService from '../../organization/services/organization.service'
 import { ErrorMessages } from '../../../enums/ErrorMessages'
 import { ValidationError } from '../../../handlers/CustomErrorHandler'
+import mailRepository from '../../organization/repositories/mail.repository'
 
 class MailService {
     async sendExamMail(data: IExamMail) {
@@ -68,6 +69,15 @@ class MailService {
         })
 
         const mailResponses = await Promise.all(mailPromises)
+
+        for (let i = 0; i < studentIds.length; i++) {
+            await mailRepository.create({
+                examId:examId,
+                studentId: studentIds[i],
+                isMailSent: true,
+            })
+        }
+
         return { success: true, mailResponses }
     }
 }
