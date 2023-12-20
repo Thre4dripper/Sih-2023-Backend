@@ -61,7 +61,10 @@ class MailService {
             .replace(new RegExp(/_DURATION_/g), duration.toString())
             .replace(new RegExp(/_NUMBER_OF_QUESTIONS_/g), numberOfQuestions.toString())
             .replace(new RegExp(/_TYPE_/g), type)
-            .replace(new RegExp(/_EXAM_LINK_/g), `http://localhost:5173/exams/${examId}/start/`)
+            .replace(
+                new RegExp(/_EXAM_LINK_/g),
+                `http://localhost:5173/?modal=login&examId=${examId}`
+            )
 
         const mailPromises = students.rows.map((student) => {
             return globalEmailService.sendEmail(student.toJSON().email, html)
