@@ -10,6 +10,8 @@ import { removeProctorController } from '../../apis/organization/controllers/rem
 import { verifyOrganization, verifySuperAdmin } from '../../middlewares/UserAuth'
 import { getAllOrganizationController } from '../../apis/organization/controllers/get.all.organization.controller'
 import { getAllOrganizationsValidator } from '../../apis/organization/validators/get.all.organizations.validator'
+import { getAnalyticsController } from '../../apis/organization/controllers/get.analytics.controller'
+import { getAnalyticsValidator } from '../../apis/organization/validators/analytics.validators'
 
 const router = express.Router()
 
@@ -36,6 +38,13 @@ router.get(
     verifySuperAdmin,
     getAllOrganizationsValidator,
     getAllOrganizationController
+)
+
+router.get(
+    '/api/v1/get-analytics',
+    verifyOrganization,
+    getAnalyticsValidator,
+    getAnalyticsController
 )
 
 export default router
