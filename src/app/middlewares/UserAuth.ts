@@ -73,7 +73,7 @@ export const verifyStudent = asyncHandler(
     async (req: UserRequest<{}, {}, {}, {}>, _res: Response, next: NextFunction) => {
         const user = verifyToken(req)
 
-        if (user.role !== Roles.STUDENT) {
+        if (user.role !== Roles.STUDENT && user.isVerified) {
             throw new ValidationError(ErrorMessages.INVALID_USER)
         }
 

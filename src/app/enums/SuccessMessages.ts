@@ -19,6 +19,7 @@ export enum SuccessMessages {
     STUDENT_REGISTERED = 'Student Registered Successfully',
     STUDENT_LOGGED_IN = 'Student Logged In Successfully',
     GET_ALL_STUDENTS = 'All Students Fetched Successfully',
+    GET_STUDENT_PROFILE = 'Student Profile Fetched Successfully',
 
     //Exams
     EXAM_CREATED = 'Exam Created Successfully',

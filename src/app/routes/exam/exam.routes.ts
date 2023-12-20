@@ -20,9 +20,15 @@ import { getAllStudentByExamIdValidator } from '../../apis/exams/validators/get.
 import { getAllStudentsForExamController } from '../../apis/exams/controllers/get.all.student.by.examId.controller'
 import { getExamLogsOfStudentController } from '../../apis/exams/controllers/get.exam.logs.by.student.id.controller'
 import { getExamLogsOfStudentValidator } from '../../apis/exams/validators/get.exam.logs.valdators'
+
 const router = express.Router()
 
-router.post('/api/v1/exam/create-exam', verifyOrganization, createExamValidator, createExamController)
+router.post(
+    '/api/v1/exam/create-exam',
+    verifyOrganization,
+    createExamValidator,
+    createExamController
+)
 
 router.post(
     '/api/v1/exam/create-exam-question',
@@ -67,7 +73,7 @@ router.post(
 )
 
 router.post(
-    '/api/v1/send-exam-mail',
+    '/api/v1/exam/send-exam-mail',
     verifyOrganization,
     sendExamMailValidator,
     sendExamMailController
