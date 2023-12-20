@@ -15,11 +15,6 @@ export const startExamController = asyncHandler(
             ...data,
             studentId,
         })
-        return new ResponseBuilder(
-            res,
-            StatusCodes.SUCCESS,
-            response,
-            SuccessMessages.EXAM_STARTED
-        )
+        return new ResponseBuilder(res, StatusCodes.SUCCESS, response, SuccessMessages.EXAM_STARTED)
     }
 )
