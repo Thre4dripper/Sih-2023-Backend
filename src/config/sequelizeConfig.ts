@@ -12,10 +12,7 @@ const sequelizeOptions: SequelizeOptions = {
     port: Number(process.env.DB_PORT),
     dialect: 'postgres',
     dialectOptions: {
-        ssl: {
-            require: true,
-            rejectUnauthorized: false,
-        },
+        ssl: false
     },
     models: [path.join(__dirname, '..', 'app', 'models')],
     logging: false,
