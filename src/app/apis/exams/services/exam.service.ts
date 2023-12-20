@@ -34,7 +34,6 @@ class ExamService {
     async getExamById(examId: number, organizationId: number) {
         const exam = await examRepository.findOne({
             id: examId,
-            organizationId,
         })
 
         if (!exam) {
