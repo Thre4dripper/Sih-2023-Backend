@@ -107,6 +107,19 @@ class LiveExamService {
             throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
+        const currentTime = new Date();
+        const startTime = new Date(exam.startTime);
+        const endTime = new Date(exam.startTime);
+        endTime.setMinutes(endTime.getMinutes() + exam.duration);
+
+        if(startTime > currentTime) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
+        }
+
+        if(endTime < currentTime) {
+            throw new ValidationError(ErrorMessages.EXAM_ALREADY_FINISHED)
+        }
+
         const student = await examRepository.findOne({
             where: {
                 id: studentId,
