@@ -28,4 +28,7 @@ export enum ErrorMessages {
     EXAM_NOT_FINISHED = 'Exam not finished yet',
     QUESTION_NOT_FOUND = 'Question not found',
     EXAM_QUESTIONS_LIMIT_REACHED = 'Exam questions limit reached',
+
+    //Logs
+    LOGS_NOT_FOUND = 'Logs not found',
 }

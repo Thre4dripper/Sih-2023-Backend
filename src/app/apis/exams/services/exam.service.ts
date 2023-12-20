@@ -54,7 +54,7 @@ class ExamService {
             throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
-        return await examRepository.update(data, id)
+        return await examRepository.update(data, { id })
     }
 
     async getAllStudentByExamId(data: { examId: number; limit: number; offset: number }) {
@@ -77,7 +77,7 @@ class ExamService {
         return examData
     }
 
-    async getExamLogs(studentId: number, organizationId: number, examId: number) {
+    async getExamLogs(studentId: number, examId: number) {
         const examLogs = await examLogsRepository.findAll({
             studentId,
             examId,
@@ -85,7 +85,7 @@ class ExamService {
         })
 
         if (!examLogs) {
-            throw new ValidationError('Exam logs not found')
+            throw new ValidationError(ErrorMessages.LOGS_NOT_FOUND)
         }
 
         return examLogs
