@@ -72,6 +72,10 @@ class StudentService {
             throw new ValidationError(ErrorMessages.STUDENT_NOT_FOUND)
         }
 
+        if(student.isVerified === 0){
+            throw new ValidationError(ErrorMessages.STUDENT_NOT_VERIFIED)
+        }
+
         const isPasswordValid = await EncryptionUtil.comparePassword(
             data.password,
             student.password

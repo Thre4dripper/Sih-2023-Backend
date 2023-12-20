@@ -19,6 +19,7 @@ export enum ErrorMessages {
     STUDENT_NOT_FOUND = 'Student not found',
     INVALID_AADHAR_NUMBER = 'Invalid Aadhar number',
     INVALID_PAN_NUMBER = 'Invalid Pan number',
+    STUDENT_NOT_VERIFIED = 'Student not verified',
 
     //Exams
     EXAM_NOT_FOUND = 'Exam not found',
