@@ -19,14 +19,40 @@ class LiveExamService {
             throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
-        const examLogData = await liveExamLogRepository.find({
+        const currentTime = new Date()
+        const startTime = new Date(exam.startTime)
+
+        if (currentTime < startTime) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
+        }
+
+        const endTime = new Date(exam.startTime)
+        endTime.setMinutes(endTime.getMinutes() + exam.duration)
+
+        if (currentTime > endTime) {
+            throw new ValidationError(ErrorMessages.EXAM_ALREADY_FINISHED)
+        }
+
+        //check for exam-started log
+        const examStartedLog = await liveExamLogRepository.find({
             examId,
             studentId,
             logType: ExamLogTypes.ExamStarted,
         })
 
-        if (examLogData) {
+        if (examStartedLog) {
             throw new ValidationError(ErrorMessages.EXAM_ALREADY_STARTED)
+        }
+
+        //check for exam finished log
+        const examFinishedLog = await liveExamLogRepository.find({
+            examId,
+            studentId,
+            logType: ExamLogTypes.ExamFinished,
+        })
+
+        if (examFinishedLog) {
+            throw new ValidationError(ErrorMessages.EXAM_ALREADY_FINISHED)
         }
 
         return await examLogsRepository.create({
@@ -50,13 +76,39 @@ class LiveExamService {
             throw new ValidationError(ErrorMessages.EXAM_NOT_FOUND)
         }
 
-        const examLogData = await liveExamLogRepository.find({
+        const currentTime = new Date()
+        const startTime = new Date(exam.startTime)
+
+        if (currentTime < startTime) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
+        }
+
+        const endTime = new Date(exam.startTime)
+        endTime.setMinutes(endTime.getMinutes() + exam.duration)
+
+        if (currentTime > endTime) {
+            throw new ValidationError(ErrorMessages.EXAM_ALREADY_FINISHED)
+        }
+
+        //check for exam-started log
+        const examStartedLog = await liveExamLogRepository.find({
+            examId,
+            studentId,
+            logType: ExamLogTypes.ExamStarted,
+        })
+
+        if (!examStartedLog) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
+        }
+
+        //check for exam finished log
+        const examFinishedLog = await liveExamLogRepository.find({
             examId,
             studentId,
             logType: ExamLogTypes.ExamFinished,
         })
 
-        if (examLogData) {
+        if (examFinishedLog) {
             throw new ValidationError(ErrorMessages.EXAM_ALREADY_FINISHED)
         }
 
@@ -155,6 +207,28 @@ class LiveExamService {
 
     async submitQuestion(data: ISubmitExamQues) {
         const { examId, studentId, questionId, options } = data
+
+        //check exam started log
+        const examStartedLog = await liveExamLogRepository.find({
+            examId,
+            studentId,
+            logType: ExamLogTypes.ExamStarted,
+        })
+
+        if (!examStartedLog) {
+            throw new ValidationError(ErrorMessages.EXAM_NOT_STARTED)
+        }
+
+        //check exam finished log
+        const examFinishedLog = await liveExamLogRepository.find({
+            examId,
+            studentId,
+            logType: ExamLogTypes.ExamFinished,
+        })
+
+        if (examFinishedLog) {
+            throw new ValidationError(ErrorMessages.EXAM_ALREADY_FINISHED)
+        }
 
         const existingLog = await examLogsRepository.findOne({
             examId,

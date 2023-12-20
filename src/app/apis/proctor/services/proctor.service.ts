@@ -56,11 +56,9 @@ class ProctorService {
             throw new ValidationError(ErrorMessages.STUDENT_NOT_FOUND)
         }
 
-        const updateData = {
+        await proctorRepository.verifyStudent({ id: studentId }, {
             isVerified: 1,
-        }
-
-        await proctorRepository.verifyStudent({ id: studentId }, updateData)
+        })
 
         return student
     }
