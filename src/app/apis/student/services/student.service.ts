@@ -87,6 +87,12 @@ class StudentService {
         const { limit, offset, organizationId } = data
         return studentRepository.getAllStudents(limit, offset, organizationId)
     }
+
+    async getStudentProfile(studentId: number) {
+        return studentRepository.find({
+            id: studentId,
+        })
+    }
 }
 
 export default new StudentService()
