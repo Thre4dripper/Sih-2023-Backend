@@ -38,4 +38,7 @@ export enum SuccessMessages {
     EXAM_STARTED = 'Exam Started Successfully',
     EXAM_QUESTION_SUBMITTED = 'Exam Question Submitted Successfully',
     EXAM_FINISHED = 'Exam Finished Successfully',
+
+    //Analytics
+    EXAM_ANALYTICS_FETCHED = 'Exam Analytics Fetched Successfully',
 }
