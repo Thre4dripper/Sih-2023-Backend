@@ -158,6 +158,7 @@ class ExamLogService {
 
             prompt += `analyze the students' activities and generate a report on the students' activities. 
                    only summarize the activity of the students. based on the activities logs provide in short
+                    not more than 50 words. in technical and creative writing.
                     `
 
             const result = await model.generateContent(prompt)
@@ -200,7 +201,8 @@ class ExamLogService {
             )
 
             prompt += `analyze the students' activities and generate a report on the students' activities. 
-                   only summarize the activity of the students. based on the activities logs provide in short
+            only summarize the activity of the students. based on the activities logs provide in short
+             not more than 50 words. in technical and creative writing
                     `
 
             const result = await model.generateContent(prompt)
