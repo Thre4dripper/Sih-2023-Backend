@@ -27,15 +27,19 @@ class StudentService {
             throw new ValidationError(ErrorMessages.STUDENT_ALREADY_EXISTS)
         }
         const { aadharNumber, panNumber } = data
-        const panNumberValidate = await verifyPan(panNumber.toString())
-        const aadharValidate = await verifyAadhaar(aadharNumber.toString())
-        console.log(panNumberValidate)
-        if (panNumberValidate === 'INVALID_PAN_NUMBER') {
-            throw new ValidationError(ErrorMessages.INVALID_PAN_NUMBER)
+        if (aadharNumber) {
+            const aadharValidate = await verifyAadhaar(aadharNumber.toString())
+            console.log(aadharValidate)
+            if (aadharValidate === 'INVALID_AADHAAR_NUMBER') {
+                throw new ValidationError(ErrorMessages.INVALID_AADHAR_NUMBER)
+            }
         }
-        console.log(aadharValidate)
-        if (aadharValidate === 'INVALID_AADHAAR_NUMBER') {
-            throw new ValidationError(ErrorMessages.INVALID_AADHAR_NUMBER)
+        if (panNumber) {
+            const panNumberValidate = await verifyPan(panNumber.toString())
+            if (panNumberValidate === 'INVALID_PAN_NUMBER') {
+                throw new ValidationError(ErrorMessages.INVALID_PAN_NUMBER)
+            }
+            console.log(panNumberValidate)
         }
 
         data.role = Roles.STUDENT
